@@ -114,8 +114,6 @@ public class ViewPagerDotsActivityDync extends FragmentActivity {
      */
     public  class MyAdapter extends FragmentStatePagerAdapter {
 
-        public Fragment currentFragment;
-
         public MyAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -139,8 +137,6 @@ public class ViewPagerDotsActivityDync extends FragmentActivity {
 
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            currentFragment = (ArrayFragment) object;
-            System.out.println("setPrimaryItem currentFragment = "+currentFragment.toString());
             super.setPrimaryItem(container, position, object);
         }
         // 初始化每个页卡选项
