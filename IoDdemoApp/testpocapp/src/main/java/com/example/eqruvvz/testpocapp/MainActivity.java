@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.eqruvvz.testpocapp.viewpager.DrawerLayout.MainMenuActivity;
 import com.example.eqruvvz.testpocapp.viewpager.ViewPagerActivity;
 import com.example.eqruvvz.testpocapp.viewpager.dotsindicator.ViewPagerDotsActivity;
 import com.example.eqruvvz.testpocapp.viewpager.dotsindicator.ViewPagerDotsActivityDync;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         buttonViewPager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });
