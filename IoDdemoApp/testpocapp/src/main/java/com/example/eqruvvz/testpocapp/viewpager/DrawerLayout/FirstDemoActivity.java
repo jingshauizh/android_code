@@ -1,6 +1,7 @@
 package com.example.eqruvvz.testpocapp.viewpager.DrawerLayout;
 
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import java.util.Locale;
 
@@ -9,7 +10,6 @@ import java.util.Locale;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -61,6 +61,9 @@ public class FirstDemoActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
+        //Hide action bar icon and logo
+        ActionBar actionBar=getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
         //
         mTitle = mDrawerTitle = getTitle();
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
@@ -72,9 +75,9 @@ public class FirstDemoActivity extends FragmentActivity implements
         }
 
 
-        //Ê¹ÓÃActionBarDrawerToggle×÷Îª¼àÌýÆ÷
+        //Ê¹ÓÃActionBarDrawerToggle×÷Îª¼àÌýÆ÷  ic_menu_moreoverflow   R.drawable.ic_drawer
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, R.string.drawer_open,
+                android.R.drawable.ic_menu_directions, R.string.drawer_open,
                 R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {

@@ -2,15 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.eqruvvz.testpocapp" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Light">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+            android:theme="@style/MyTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,11 +35,14 @@
         </activity>
         <activity android:name=".viewpager.dotsindicator.ViewPagerDotsActivityDync" >
         </activity>
-        <activity android:name=".viewpager.DrawerLayout.FirstDemoActivity" >
+        <activity android:name=".viewpager.DrawerLayout.FirstDemoActivity"
+            android:theme="@style/MyTheme">
         </activity>
-        <activity android:name=".viewpager.DrawerLayout.SecondDemoActivity" >
+        <activity android:name=".viewpager.DrawerLayout.SecondDemoActivity"
+            android:theme="@style/MyTheme">
         </activity>
-        <activity android:name=".viewpager.DrawerLayout.ThirdDemoActivity" >
+        <activity android:name=".viewpager.DrawerLayout.ThirdDemoActivity"
+            android:theme="@style/MyTheme">
         </activity>
         <activity android:name=".viewpager.DrawerLayout.MainMenuActivity" >
         </activity>

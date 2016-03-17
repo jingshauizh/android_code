@@ -1,11 +1,12 @@
 package com.example.eqruvvz.testpocapp.viewpager.DrawerLayout;
 
-import android.support.v7.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.example.eqruvvz.testpocapp.R;
 
-public class ThirdDemoActivity extends AppCompatActivity {
+public class ThirdDemoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
