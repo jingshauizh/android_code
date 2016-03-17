@@ -19,8 +19,21 @@
         <item>Neptune</item>
     </string-array>
 
+
+    <string-array name="menu_list_array">
+        <item>View Pager</item>
+        <item>Drawer Layout</item>
+        <item>AppCompatActivity</item>
+        <item>Service</item>
+        <item>UI Widget</item>
+        <item>Net Module</item>
+        <item>Moongh Project</item>
+        <item>More</item>
+    </string-array>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
 </resources>
