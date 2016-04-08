@@ -8,13 +8,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.GridView;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.aa.aaapp.activity.ActivityBase;
+import com.example.aa.aaapp.activity.ActivityFrame;
+import com.example.aa.aaapp.adapter.BodyAdapter;
+
+public class MainActivity extends ActivityFrame {
+
+    private GridView gvGridView;
+    private BodyAdapter _BodyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -26,6 +36,27 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        appendMainBody(R.layout.bodygridlayout);
+
+        initVariable();
+        initView();
+        initListeners();
+        bindData();
+    }
+
+    public void initVariable(){
+        this.intItem();
+        _BodyAdapter = new BodyAdapter(this,this._lBodyItemList);
+    }
+
+    public void initView(){
+        gvGridView = (GridView)findViewById(R.id.gvGridView);
+    }
+    public void initListeners(){
+
+    }
+    public void bindData(){
+        gvGridView.setAdapter(_BodyAdapter);
     }
 
     @Override
