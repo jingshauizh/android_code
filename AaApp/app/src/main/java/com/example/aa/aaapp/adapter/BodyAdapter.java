@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.aa.aaapp.R;
@@ -59,6 +60,9 @@ public class BodyAdapter extends BaseAdapter {
         } else {
             _holder = (Holder) convertView.getTag();
             _holder.imIcon.setImageResource(_lBodyItemList.get(position).getItemImage());
+            LinearLayout.LayoutParams  _LayoutParams = new LinearLayout.LayoutParams(150,150);
+            _holder.imIcon.setLayoutParams(_LayoutParams);
+            _holder.imIcon.setScaleType(ImageView.ScaleType.FIT_XY);
             _holder.tvText.setText(_lBodyItemList.get(position).getItemName());
         }
         return convertView;
