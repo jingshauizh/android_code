@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.example.aa.aaapp.controls.SliderMenuItem;
+import com.example.aa.aaapp.controls.SliderMenuView;
 import com.example.aa.aaapp.model.BodyItem;
 import com.example.aa.aaapp.R;
 
@@ -17,6 +20,8 @@ import java.util.List;
  */
 public class ActivityFrame extends ActivityBase {
     protected List<BodyItem> _lBodyItemList;
+
+    private SliderMenuView _SliderMenuView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,18 @@ public class ActivityFrame extends ActivityBase {
         View _View = LayoutInflater.from(this).inflate(pResId,null);
         RelativeLayout.LayoutParams _LayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
         _MainBody.addView(_View, _LayoutParams);
+    }
+
+    protected void createSliderMenu(int resId){
+        _SliderMenuView = new SliderMenuView(this);
+        String [] _menuItemArray = this.getResources().getStringArray(resId);
+        for(int i=0; i<_menuItemArray.length;i++){
+            SliderMenuItem _item = new SliderMenuItem();
+            _item.setmId(i);
+            _item.setmTitle(_menuItemArray[i]);
+            _SliderMenuView.add(_item);
+        }
+        _SliderMenuView.bindList();
     }
 
     protected void intItem(){

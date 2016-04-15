@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_alignParentBottom = "true"
     android:layout_height="68dp">
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="68dp"
-
+        android:id="@+id/tvBottomBox"
         android:background="@drawable/bottom">
         <ImageView
             android:id="@+id/imgBottomLeft"
@@ -35,4 +35,17 @@
             android:layout_alignParentEnd="true"
             android:src="@drawable/menu" />
     </RelativeLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvBottomBox"
+        android:id="@+id/layBottomListView">
+        <ListView
+            style="@style/ListViewStyle"
+            android:id="@+id/lvSliderView"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

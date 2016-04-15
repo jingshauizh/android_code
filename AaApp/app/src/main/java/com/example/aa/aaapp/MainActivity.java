@@ -42,6 +42,7 @@ public class MainActivity extends ActivityFrame {
         initView();
         initListeners();
         bindData();
+        this.createSliderMenu(R.array.initDefaultUsername);
     }
 
     public void initVariable(){
