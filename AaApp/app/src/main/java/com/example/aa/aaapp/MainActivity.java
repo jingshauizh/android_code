@@ -14,8 +14,11 @@ import android.widget.GridView;
 import com.example.aa.aaapp.activity.ActivityBase;
 import com.example.aa.aaapp.activity.ActivityFrame;
 import com.example.aa.aaapp.adapter.BodyAdapter;
+import com.example.aa.aaapp.controls.SliderMenuItem;
+import com.example.aa.aaapp.controls.SliderMenuView;
 
-public class MainActivity extends ActivityFrame {
+public class MainActivity extends ActivityFrame implements SliderMenuView.OnSliderMenuListenerIF {
+
 
     private GridView gvGridView;
     private BodyAdapter _BodyAdapter;
@@ -58,6 +61,11 @@ public class MainActivity extends ActivityFrame {
     }
     public void bindData(){
         gvGridView.setAdapter(_BodyAdapter);
+    }
+
+    @Override
+    public void onSliderMenuItemClick(View p_View, SliderMenuItem p_SliderMenuItem) {
+        this.showMsg("eeeeerrr title="+p_SliderMenuItem.getmTitle());
     }
 
     @Override

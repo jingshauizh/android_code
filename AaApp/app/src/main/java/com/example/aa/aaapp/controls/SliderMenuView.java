@@ -1,6 +1,7 @@
 package com.example.aa.aaapp.controls;
 
 import android.app.Activity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -25,12 +26,16 @@ public class SliderMenuView {
     private List mMenuList;
     private Boolean mIdClosed;
     private RelativeLayout layBottomBox;
+    private OnSliderMenuListenerIF m_OnSliderMenuListener;
 
-
+    public interface OnSliderMenuListenerIF{
+        public abstract void onSliderMenuItemClick(View p_View, SliderMenuItem p_SliderMenuItem);
+    }
 
 
     public SliderMenuView(Activity pActivity) {
         this.mActivity = pActivity;
+        this.m_OnSliderMenuListener = (OnSliderMenuListenerIF)pActivity;
         initVariable();
         initView();
         initListeners();
@@ -45,7 +50,18 @@ public class SliderMenuView {
         layBottomBox =(RelativeLayout) mActivity.findViewById(R.id.includeBottom);
     }
     public void initListeners(){
+
         layBottomBox.setOnClickListener(new OnSliderMenuClick());
+        layBottomBox.setFocusableInTouchMode(true);
+        layBottomBox.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_MENU && event.getAction() == KeyEvent.ACTION_UP){
+                    toggle();
+                }
+                return false;
+            }
+        });
     }
 
     private void open(){
@@ -88,8 +104,9 @@ public class SliderMenuView {
 
     private class OnSliderItemClick implements AdapterView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        public void onItemClick(AdapterView p_AdapterView, View p_view, int position, long id) {
+            SliderMenuItem _SliderMenuItem = (SliderMenuItem)p_AdapterView.getAdapter().getItem(position);
+            m_OnSliderMenuListener.onSliderMenuItemClick(p_view,_SliderMenuItem);
         }
     };
 }
