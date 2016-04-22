@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IoDdemoApp.iml" filepath="$PROJECT_DIR$/IoDdemoApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/doogenerator/doogenerator.iml" filepath="$PROJECT_DIR$/doogenerator/doogenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/testpocapp/testpocapp.iml" filepath="$PROJECT_DIR$/testpocapp/testpocapp.iml" />
     </modules>
   </component>
