@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by Administrator on 16-4-17.
  */
-public class User {
+public class Model_User {
 
     private String name;
 
@@ -42,14 +42,14 @@ public class User {
     }
 
     private Integer userId;
-    private UserStatus status;
+    private UserStatus status = UserStatus.USE;
     private Date createDate=new Date();
 
 
 
     public enum UserStatus{
-        USER_DELETED, //删除
-        USER_INUSE,   // 正常
-        USER_DISABLE // 禁用
+        DET, //删除
+        USE,   // 正常
+        DIS // 禁用
     }
 }

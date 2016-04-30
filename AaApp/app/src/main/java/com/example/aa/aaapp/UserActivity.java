@@ -3,28 +3,24 @@ package com.example.aa.aaapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.widget.AdapterView;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ListView;
 
-import com.example.aa.aaapp.activity.ActivityBase;
 import com.example.aa.aaapp.activity.ActivityFrame;
+import com.example.aa.aaapp.adapter.AdapterUser;
 import com.example.aa.aaapp.adapter.BodyAdapter;
 import com.example.aa.aaapp.controls.SliderMenuItem;
 import com.example.aa.aaapp.controls.SliderMenuView;
-import com.example.aa.aaapp.model.BodyItem;
-import com.example.aa.aaapp.model.Model_User;
 
-public class MainActivity extends ActivityFrame implements SliderMenuView.OnSliderMenuListenerIF {
+public class UserActivity extends ActivityFrame implements SliderMenuView.OnSliderMenuListenerIF {
 
 
-    private GridView gvGridView;
-    private BodyAdapter _BodyAdapter;
+    private ListView lvUserList;
+    private AdapterUser _AdapterUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +38,7 @@ public class MainActivity extends ActivityFrame implements SliderMenuView.OnSlid
                         .setAction("Action", null).show();
             }
         });
-        appendMainBody(R.layout.bodygridlayout);
+        appendMainBody(R.layout.user_layout);
 
         initVariable();
         initView();
@@ -53,25 +49,22 @@ public class MainActivity extends ActivityFrame implements SliderMenuView.OnSlid
 
     public void initVariable(){
         this.intItem();
-        _BodyAdapter = new BodyAdapter(this,this._lBodyItemList);
+        _AdapterUser = new AdapterUser(this);
     }
 
     public void initView(){
-        gvGridView = (GridView)findViewById(R.id.gvGridView);
+        lvUserList = (ListView)findViewById(R.id.lvUserList);
     }
     public void initListeners(){
-        gvGridView.setOnItemClickListener(new OnAppGridViewItemClickListerer());
+
     }
-
-
     public void bindData(){
-        gvGridView.setAdapter(_BodyAdapter);
+        lvUserList.setAdapter(_AdapterUser);
     }
 
     @Override
     public void onSliderMenuItemClick(View p_View, SliderMenuItem p_SliderMenuItem) {
-        this.showMsg("eeeeerrr title=" + p_SliderMenuItem.getmTitle());
-
+        this.showMsg("eeeeerrr title="+p_SliderMenuItem.getmTitle());
     }
 
     @Override
@@ -95,17 +88,4 @@ public class MainActivity extends ActivityFrame implements SliderMenuView.OnSlid
 
         return super.onOptionsItemSelected(item);
     }
-
-    private class OnAppGridViewItemClickListerer implements AdapterView.OnItemClickListener{
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            BodyItem _BodyItem=(BodyItem)parent.getAdapter().getItem(position);
-            if(_BodyItem.getItemName().equals(getString(R.string.app_mamber_manage))) {
-                openActivity(UserActivity.class);
-                return;
-            }
-        }
-    }
-
-
 }

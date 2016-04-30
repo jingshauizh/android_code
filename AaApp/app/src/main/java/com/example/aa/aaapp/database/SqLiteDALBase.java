@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Administrator on 16-4-17.
  */
-public abstract class SQLiteDALBase {
+public abstract class SQLiteDALBase implements SQLiteHelper.SQLiteDataTable {
     private Context m_context;
     private SQLiteDatabase m_DataBase;
 
@@ -60,6 +60,11 @@ public abstract class SQLiteDALBase {
         return _count;
     }
 
+    protected List getList(String p_SqlTxt){
+        Cursor _cursor = ExecSql(p_SqlTxt);
+        return cursorToList(_cursor);
+    }
+
     protected Boolean delete(String p_Tablename, String p_Condition){
         return getDataBase().delete(p_Tablename, " 1=1 "+p_Condition,null) >=0;
     }
@@ -77,36 +82,6 @@ public abstract class SQLiteDALBase {
     public Cursor ExecSql(String p_SqlText){
         return getDataBase().rawQuery(p_SqlText,null);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

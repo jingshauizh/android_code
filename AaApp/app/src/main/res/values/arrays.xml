@@ -6,4 +6,9 @@
         <item>王五</item>
         <item>贾六</item>
     </string-array>
+
+
+    <string-array name="SQLiteDALClassName">
+        <item>SQLiteDAL_User</item>
+    </string-array>
 </resources>

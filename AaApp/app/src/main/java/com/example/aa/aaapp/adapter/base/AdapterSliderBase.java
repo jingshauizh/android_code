@@ -15,6 +15,9 @@ public abstract class AdapterSliderBase extends BaseAdapter{
 
 
     protected Context mContext;
+
+
+
     protected List mItemList;
     protected LayoutInflater mLayoutInflater;
 
@@ -35,6 +38,10 @@ public abstract class AdapterSliderBase extends BaseAdapter{
 
     public List getList() {
         return mItemList;
+    }
+
+    public void setList(List mItemList) {
+        this.mItemList = mItemList;
     }
 
     @Override
