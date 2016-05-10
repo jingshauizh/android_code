@@ -102,6 +102,16 @@ public class SliderMenuView {
         }
     };
 
+    public void RemoveBottomBox()
+    {
+        RelativeLayout _MainLayout = (RelativeLayout)mActivity.findViewById(R.id.layMainLayout);
+        if(layBottomBox != null && _MainLayout != null){
+            _MainLayout.removeView(layBottomBox);
+            layBottomBox = null;
+        }
+
+    }
+
     private class OnSliderItemClick implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView p_AdapterView, View p_view, int position, long id) {

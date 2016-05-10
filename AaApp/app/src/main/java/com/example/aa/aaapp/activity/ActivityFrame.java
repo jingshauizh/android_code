@@ -2,10 +2,12 @@ package com.example.aa.aaapp.activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.aa.aaapp.controls.SliderMenuItem;
 import com.example.aa.aaapp.controls.SliderMenuView;
@@ -73,5 +75,47 @@ public class ActivityFrame extends ActivityBase {
         _lBodyItemList.add(_BodyItem7);
         _lBodyItemList.add(_BodyItem8);
 
+    }
+
+    /**
+     * ÉèÖÃTopBar±êÌâ
+     * @param pRestID ÒªÉèÖÃµÄString×ÊÔ´ID
+     */
+    protected void setTopBarTitle(String pText) {
+
+        TextView _tvTitle = (TextView) findViewById(R.id.tvTopTitle);
+        _tvTitle.setText(pText);
+    }
+
+    protected void slideMenuToggle() {
+        _SliderMenuView.toggle();
+    }
+
+    protected void RemoveBottomBox()
+    {
+        _SliderMenuView = new SliderMenuView(this);
+        _SliderMenuView.RemoveBottomBox();
+    }
+
+    protected void createMenu(Menu p_Menu)
+    {
+        int _GroupID = 0;
+        int _Order = 0;
+        int[] p_ItemID = {1,2};
+
+        for(int i=0;i<p_ItemID.length;i++)
+        {
+            switch(p_ItemID[i])
+            {
+                case 1:
+                    p_Menu.add(_GroupID, p_ItemID[i], _Order, R.string.MenuTextEdit);
+                    break;
+                case 2:
+                    p_Menu.add(_GroupID, p_ItemID[i], _Order, R.string.MenuTextDelete);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

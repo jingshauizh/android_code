@@ -38,9 +38,21 @@ public class SQLiteDAL_User extends SQLiteDALBase {
        return getDataBase().update(getTableNameAndPK()[0], _ContentValues, p_condition,null) > 0;
     }
 
+    public Boolean updateUser(String p_Condition,ContentValues pContentValues)
+    {
+        return getDataBase().update("User", pContentValues, p_Condition, null) > 0;
+    }
+
+
     public List<Model_User> getUsers(String p_condition){
-        String _sql= "select * from User where 1=1 "+p_condition;
+        String _sql= "  select * from User where 1=1 "+p_condition;
         return getList(_sql);
+    }
+
+    public List<Model_User> getUser(String pCondition)
+    {
+        String _SqlText = "  select * from User where 1=1 " + pCondition;
+        return getList(_SqlText);
     }
 
     @Override

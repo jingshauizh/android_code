@@ -104,6 +104,29 @@ public class MainActivity extends ActivityFrame implements SliderMenuView.OnSlid
                 openActivity(UserActivity.class);
                 return;
             }
+
+            if(_BodyItem.getItemName().equals(getString(R.string.ActivityTitleAccountBook))) {
+                openActivity(ActivityAccountBook.class);
+                return;
+            }
+
+            if(_BodyItem.getItemName().equals(getString(R.string.app_category))) {
+                openActivity(ActivityCategory.class);
+                return;
+            }
+
+            if(_BodyItem.getItemName().equals(getString(R.string.app_add))) {
+                openActivity(ActivityPayoutAddOrEdit.class);
+                return;
+            }
+
+            if(_BodyItem.getItemName().equals(getString(R.string.app_search))) {
+                openActivity(ActivityPayout.class);
+                return;
+            }
+
+
+
         }
     }
 

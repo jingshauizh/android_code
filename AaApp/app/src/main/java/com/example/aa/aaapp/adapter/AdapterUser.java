@@ -39,10 +39,10 @@ public  class AdapterUser extends AdapterSliderBase {
         Holder _holder;
         if (convertView == null) {
 
-            convertView = this.getmLayoutInflater().inflate(R.layout.slider_list_item, null);
+            convertView = this.getmLayoutInflater().inflate(R.layout.user_list_item_layout, null);
             _holder = new Holder();
-            //_holder.imgUserIcon = (ImageView) convertView.findViewById(R.id.imgUserIcon);
-            _holder.tvUserName = (TextView) convertView.findViewById(R.id.tvListItemTitle);
+            _holder.imgUserIcon = (ImageView) convertView.findViewById(R.id.imgUserIcon);
+            _holder.tvUserName = (TextView) convertView.findViewById(R.id.tvUserName);
             convertView.setTag(_holder);
         } else {
             _holder = (Holder) convertView.getTag();
@@ -50,7 +50,7 @@ public  class AdapterUser extends AdapterSliderBase {
         Model_User _Model_User = (Model_User)this.mItemList.get(position);
         if(_holder != null){
             _holder.tvUserName.setText(_Model_User.getName());
-            //_holder.imgUserIcon.setImageResource(R.drawable.ic_cake_black_18dp);
+            _holder.imgUserIcon.setImageResource(R.drawable.ic_person_black_36dp);
         }
 
         return convertView;

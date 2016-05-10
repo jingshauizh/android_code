@@ -18,4 +18,7 @@ public class Business_Base {
     protected String getString(int resId, Object[] p_Objects){
         return m_Context.getString(resId,p_Objects);
     }
+    protected Context getContext() {
+        return m_Context;
+    }
 }

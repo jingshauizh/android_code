@@ -1,4 +1,4 @@
-package mobidever.godutch.utility;
+package com.example.aa.aaapp.Util;
 
 public final class RegexTools {
 	public final static String _ChineseEnglishNum = "[a-zA-Z0-9\u4e00-\u9fa5]+";
@@ -25,3 +25,4 @@ public final class RegexTools {
 		}
 	}
 }
+

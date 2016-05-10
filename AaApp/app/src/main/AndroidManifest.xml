@@ -24,6 +24,39 @@
             android:theme="@style/AppTheme.NoActionBar"
             >
         </activity>
+
+        <activity
+            android:name=".ActivityAccountBook"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
+
+        <activity
+            android:name=".ActivityCategory"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
+
+        <activity
+            android:name=".ActivityCategoryAddOrEdit"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
+
+        <activity
+            android:name=".ActivityPayoutAddOrEdit"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
+        <activity
+            android:name=".ActivityPayout"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
+
+
+
+
     </application>
 
 </manifest>

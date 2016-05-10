@@ -41,7 +41,7 @@ public class Model_User {
         this.createDate = createDate;
     }
 
-    private Integer userId;
+    private Integer userId = 0;
     private UserStatus status = UserStatus.USE;
     private Date createDate=new Date();
 
