@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="3"
-        android:listSelector="@drawable/list_grid_selector"
+        android:listSelector="@drawable/app_grid_selector"
         android:gravity="center_horizontal"
         android:verticalSpacing="20dp"
         android:layout_marginLeft="40dp"
