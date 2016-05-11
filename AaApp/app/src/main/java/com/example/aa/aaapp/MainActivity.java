@@ -48,7 +48,7 @@ public class MainActivity extends ActivityFrame implements SliderMenuView.OnSlid
         initView();
         initListeners();
         bindData();
-        this.createSliderMenu(R.array.initDefaultUsername);
+        this.createSliderMenu(R.array.SlideMenuActivityMain);
     }
 
     public void initVariable(){

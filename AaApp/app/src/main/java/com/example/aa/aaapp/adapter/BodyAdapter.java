@@ -57,14 +57,16 @@ public class BodyAdapter extends BaseAdapter {
             _holder.imIcon = (ImageView) convertView.findViewById(R.id.img_imageView);
             _holder.tvText = (TextView) convertView.findViewById(R.id.tv_TextView);
             convertView.setTag(_holder);
-        } else {
-            _holder = (Holder) convertView.getTag();
-            _holder.imIcon.setImageResource(_lBodyItemList.get(position).getItemImage());
-            LinearLayout.LayoutParams  _LayoutParams = new LinearLayout.LayoutParams(150,150);
-            _holder.imIcon.setLayoutParams(_LayoutParams);
-            _holder.imIcon.setScaleType(ImageView.ScaleType.FIT_XY);
-            _holder.tvText.setText(_lBodyItemList.get(position).getItemName());
         }
+        else {
+            _holder = (Holder) convertView.getTag();
+        }
+        _holder.imIcon.setImageResource(_lBodyItemList.get(position).getItemImage());
+        LinearLayout.LayoutParams  _LayoutParams = new LinearLayout.LayoutParams(150,150);
+        _holder.imIcon.setLayoutParams(_LayoutParams);
+        _holder.imIcon.setScaleType(ImageView.ScaleType.FIT_XY);
+        _holder.tvText.setText(_lBodyItemList.get(position).getItemName());
+
         return convertView;
     }
 
