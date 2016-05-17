@@ -4,4 +4,7 @@
     <string name="action_value_animator">action_value_animator</string>
     <string name="ButtonTextYes">Yes</string>
     <string name="ButtonTextNo">No</string>
+    <string name="action_roatate">action_roatate</string>
+    <string name="title_activity_activity_roatate">ActivityRoatate</string>
+
 </resources>

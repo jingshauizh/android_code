@@ -53,6 +53,10 @@ public class MainActivity extends ActivityBase {
             this.openActivity(ObejctAnimActivity.class);
         }
 
+        if (id == R.id.action_roatate) {
+            this.openActivity(ActivityRoatate.class);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }
