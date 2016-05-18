@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/AaApp.iml" filepath="$PROJECT_DIR$/AaApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/animationapp/animationapp.iml" filepath="$PROJECT_DIR$/animationapp/animationapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greendaolib/greendaolib.iml" filepath="$PROJECT_DIR$/greendaolib/greendaolib.iml" />
     </modules>
   </component>
 </project>
