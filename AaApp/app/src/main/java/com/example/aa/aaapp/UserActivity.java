@@ -24,7 +24,11 @@ import com.example.aa.aaapp.adapter.BodyAdapter;
 import com.example.aa.aaapp.business.Business_User;
 import com.example.aa.aaapp.controls.SliderMenuItem;
 import com.example.aa.aaapp.controls.SliderMenuView;
+import com.example.aa.aaapp.greendao.UserStatus;
+import com.example.aa.aaapp.greendao.model.UserEntity;
 import com.example.aa.aaapp.model.Model_User;
+
+import java.util.Date;
 
 public class UserActivity extends ActivityFrame implements SliderMenuView.OnSliderMenuListenerIF {
 
@@ -32,7 +36,7 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
     private ListView lvUserList;
     private AdapterUser _AdapterUser;
     private Business_User mBusinessUser;
-    private Model_User mSelectModlUser;
+    private UserEntity mSelectModlUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +81,10 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
         AdapterView.AdapterContextMenuInfo _AdapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
         ListAdapter _ListAdapter = lvUserList.getAdapter();
 
-        mSelectModlUser = (Model_User)_ListAdapter.getItem(_AdapterContextMenuInfo.position);
+        mSelectModlUser = (UserEntity)_ListAdapter.getItem(_AdapterContextMenuInfo.position);
 
         menu.setHeaderIcon(R.drawable.user_small_icon);
-        menu.setHeaderTitle(mSelectModlUser.getName());
+        menu.setHeaderTitle(mSelectModlUser.getUserName());
 
         createMenu(menu);
     }
@@ -123,14 +127,14 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
         setTopBarTitle(_Titel);
     }
 
-    private void ShowUserAddOrEditDialog(Model_User pModelUser)
+    private void ShowUserAddOrEditDialog(UserEntity pModelUser)
     {
         View _View = getLayouInflater().inflate(R.layout.user_add_or_edit, null);
 
         EditText _etUserName = (EditText) _View.findViewById(R.id.etUserName);
 
         if (pModelUser != null) {
-            _etUserName.setText(pModelUser.getName());
+            _etUserName.setText(pModelUser.getUserName());
         }
 
         String _Title;
@@ -154,11 +158,11 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
 
     private class OnAddOrEditUserListener implements DialogInterface.OnClickListener
     {
-        private Model_User mModelUser;
+        private UserEntity mModelUser;
         private EditText etUserName;
         private boolean mIsSaveButton;
 
-        public OnAddOrEditUserListener(Model_User pModelUser,EditText petUserName,Boolean pIsSaveButton)
+        public OnAddOrEditUserListener(UserEntity pModelUser,EditText petUserName,Boolean pIsSaveButton)
         {
             mModelUser = pModelUser;
             etUserName = petUserName;
@@ -174,7 +178,7 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
             }
 
             if (mModelUser == null) {
-                mModelUser = new Model_User();
+                mModelUser = new UserEntity();
             }
 
             String _UserName = etUserName.getText().toString().trim();
@@ -182,7 +186,7 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
             boolean _CheckResult = RegexTools.IsChineseEnglishNum(_UserName);
 
             if (!_CheckResult) {
-                Toast.makeText(getApplicationContext(), getString(R.string.CheckDataTextChineseEnglishNum, new Object[]{etUserName.getHint()}), SHOW_TIME).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.CheckDataTextChineseEnglishNum, new Object[]{etUserName.getHint()}), Toast.LENGTH_SHORT).show();
                 setAlertDialogIsClose(dialog, false);
                 return;
             }
@@ -193,7 +197,7 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
             _CheckResult = mBusinessUser.isExistUserByUserName(_UserName, mModelUser.getUserId());
 
             if (_CheckResult) {
-                Toast.makeText(getApplicationContext(), getString(R.string.CheckDataTextUserExist), SHOW_TIME).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.CheckDataTextUserExist), Toast.LENGTH_SHORT).show();
 
                 setAlertDialogIsClose(dialog, false);
                 return;
@@ -202,11 +206,14 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
                 setAlertDialogIsClose(dialog, true);
             }
 
-            mModelUser.setName(etUserName.getText().toString());
+            mModelUser.setUserName(etUserName.getText().toString());
+            mModelUser.setUserStatus(UserStatus.USE.toString());
+            mModelUser.setCreateDate(new Date());
+            mModelUser.setUserId((int)(new Date()).getTime());
 
             boolean _Result = false;
 
-            if (mModelUser.getUserId() == 0) {
+            if (mModelUser.getId() == null ||mModelUser.getId() ==0) {
                 _Result = mBusinessUser.insertUser(mModelUser);
             }
             else {
@@ -217,14 +224,14 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
                 bindData();
             }
             else {
-                Toast.makeText(UserActivity.this, getString(R.string.TipsAddFail), 1).show();
+                Toast.makeText(UserActivity.this, getString(R.string.TipsAddFail), Toast.LENGTH_SHORT).show();
             }
         }
 
     }
 
     private void Delete() {
-        String _Message = getString(R.string.DialogMessageUserDelete,new Object[]{mSelectModlUser.getName()});
+        String _Message = getString(R.string.DialogMessageUserDelete,new Object[]{mSelectModlUser.getUserName()});
         showAlertDialog(R.string.DialogTitleDelete, _Message,new OnDeleteClickListener());
     }
 

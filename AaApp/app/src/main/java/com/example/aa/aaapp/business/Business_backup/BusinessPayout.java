@@ -1,7 +1,5 @@
-package com.example.aa.aaapp.business;
+package com.example.aa.aaapp.business.Business_backup;
 
-import java.util.List;
-import android.R.integer;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -10,6 +8,8 @@ import com.example.aa.aaapp.business.base.Business_Base;
 import com.example.aa.aaapp.database.interfaces.SQLiteDALPayoutIF;
 import com.example.aa.aaapp.database.sqldal.SQLiteDALPayout;
 import com.example.aa.aaapp.model.ModelPayout;
+
+import java.util.List;
 
 public class BusinessPayout extends Business_Base {
 	

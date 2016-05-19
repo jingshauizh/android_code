@@ -13,9 +13,11 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.aa.aaapp.R;
 import com.example.aa.aaapp.Util.DateTools;
 import com.example.aa.aaapp.database.SQLiteDALBase;
+import com.example.aa.aaapp.database.interfaces.DQLiteBaseIF;
+import com.example.aa.aaapp.database.interfaces.SQLiteDALCategoryIF;
 import com.example.aa.aaapp.model.ModelCategory;
 
-public class SQLiteDALCategory extends SQLiteDALBase {
+public class SQLiteDALCategory extends SQLiteDALBase implements SQLiteDALCategoryIF {
 
 	public SQLiteDALCategory(Context p_Context) {
 		super(p_Context);

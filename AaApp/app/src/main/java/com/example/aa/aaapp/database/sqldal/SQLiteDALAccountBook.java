@@ -11,10 +11,11 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.aa.aaapp.R;
 import com.example.aa.aaapp.Util.DateTools;
 import com.example.aa.aaapp.database.SQLiteDALBase;
+import com.example.aa.aaapp.database.interfaces.SQLiteDALAccountBookIF;
 import com.example.aa.aaapp.model.ModelAccountBook;
 
 
-public class SQLiteDALAccountBook extends SQLiteDALBase {
+public class SQLiteDALAccountBook extends SQLiteDALBase implements SQLiteDALAccountBookIF {
 
 	public SQLiteDALAccountBook(Context p_Context) {
 		super(p_Context);

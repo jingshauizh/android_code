@@ -43,7 +43,7 @@ public class AaGenaerator {
 
         userEntity.addIntProperty("userId").index();
         userEntity.addStringProperty("userStatus").notNull().javaDocGetterAndSetter("JavaDoc test getter and setter");
-        userEntity.addIntProperty("userName").notNull().javaDocGetterAndSetter("JavaDoc test getter");
+        userEntity.addStringProperty("userName").notNull().javaDocGetterAndSetter("JavaDoc test getter");
         userEntity.addDateProperty("createDate").notNull();
         return userEntity;
     }

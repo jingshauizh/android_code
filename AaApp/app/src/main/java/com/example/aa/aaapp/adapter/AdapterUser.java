@@ -11,6 +11,7 @@ import com.example.aa.aaapp.adapter.base.AdapterSliderBase;
 import com.example.aa.aaapp.business.Business_User;
 import com.example.aa.aaapp.business.base.Business_Base;
 import com.example.aa.aaapp.controls.SliderMenuItem;
+import com.example.aa.aaapp.greendao.model.UserEntity;
 import com.example.aa.aaapp.model.Model_User;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public  class AdapterUser extends AdapterSliderBase {
 
         super(pContext, null);
         m_Business_User = new Business_User(pContext);
-        List<Model_User> _Model_UserList = m_Business_User.getNotHideUsers();
+        List<UserEntity> _Model_UserList = m_Business_User.getNotHideUsers();
        setList(_Model_UserList);
     }
 
@@ -47,9 +48,9 @@ public  class AdapterUser extends AdapterSliderBase {
         } else {
             _holder = (Holder) convertView.getTag();
         }
-        Model_User _Model_User = (Model_User)this.mItemList.get(position);
+        UserEntity _Model_User = (UserEntity)this.mItemList.get(position);
         if(_holder != null){
-            _holder.tvUserName.setText(_Model_User.getName());
+            _holder.tvUserName.setText(_Model_User.getUserName());
             _holder.imgUserIcon.setImageResource(R.drawable.ic_person_black_36dp);
         }
 

@@ -1,22 +1,16 @@
-package com.example.aa.aaapp.business;
+package com.example.aa.aaapp.business.Business_backup;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-
-import android.R.integer;
-import android.R.string;
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
 
-import com.example.aa.aaapp.database.interfaces.SQLiteDALAccountBookIF;
 import com.example.aa.aaapp.database.sqldal.SQLiteDALAccountBook;
 import com.example.aa.aaapp.model.ModelAccountBook;
 
+import java.util.List;
+
 public class BusinessAccountBook extends Business_User {
 
-	private SQLiteDALAccountBookIF m_SqLiteDALAccountBook;
+	private SQLiteDALAccountBook m_SqLiteDALAccountBook;
 
 	public BusinessAccountBook(Context p_Context) {
 		super(p_Context);
@@ -24,7 +18,7 @@ public class BusinessAccountBook extends Business_User {
 	}
 
 	public Boolean InsertAccountBook(ModelAccountBook p_Info) {
-		//m_SqLiteDALAccountBook.beginTransaction();
+		m_SqLiteDALAccountBook.beginTransaction();
 		try {
 			Boolean _Result = m_SqLiteDALAccountBook.InsertAccountBook(p_Info);
 			Boolean _Result2 = true;
@@ -33,7 +27,7 @@ public class BusinessAccountBook extends Business_User {
 			}
 
 			if (_Result && _Result2) {
-				//m_SqLiteDALAccountBook.setTransactionSuccessful();
+				m_SqLiteDALAccountBook.setTransactionSuccessful();
 				return true;
 			} else {
 				return false;
@@ -41,12 +35,12 @@ public class BusinessAccountBook extends Business_User {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			//m_SqLiteDALAccountBook.endTransaction();
+			m_SqLiteDALAccountBook.endTransaction();
 		}
 	}
 
 	public Boolean DeleteAccountBookByAccountBookID(int p_AccountBookID) {
-		//m_SqLiteDALAccountBook.beginTransaction();
+		m_SqLiteDALAccountBook.beginTransaction();
 		try {
 			String _Condition = " And AccountBookID = " + p_AccountBookID;
 			Boolean _Result = m_SqLiteDALAccountBook
@@ -60,7 +54,7 @@ public class BusinessAccountBook extends Business_User {
 			}
 
 			if (_Result && _Result2) {
-				//m_SqLiteDALAccountBook.setTransactionSuccessful();
+				m_SqLiteDALAccountBook.setTransactionSuccessful();
 				return true;
 			} else {
 				return false;
@@ -68,12 +62,12 @@ public class BusinessAccountBook extends Business_User {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			//m_SqLiteDALAccountBook.endTransaction();
+			m_SqLiteDALAccountBook.endTransaction();
 		}
 	}
 
 	public Boolean UpdateAccountBookByAccountBookID(ModelAccountBook p_Info) {
-		//m_SqLiteDALAccountBook.beginTransaction();
+		m_SqLiteDALAccountBook.beginTransaction();
 		try {
 			String _Condition = " AccountBookID = " + p_Info.GetAccountBookID();
 			Boolean _Result = m_SqLiteDALAccountBook.UpdateAccountBook(
@@ -84,7 +78,7 @@ public class BusinessAccountBook extends Business_User {
 			}
 
 			if (_Result && _Result2) {
-				//m_SqLiteDALAccountBook.setTransactionSuccessful();
+				m_SqLiteDALAccountBook.setTransactionSuccessful();
 				return true;
 			} else {
 				return false;
@@ -92,7 +86,7 @@ public class BusinessAccountBook extends Business_User {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			//m_SqLiteDALAccountBook.endTransaction();
+			m_SqLiteDALAccountBook.endTransaction();
 		}
 	}
 

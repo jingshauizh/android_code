@@ -12,9 +12,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.aa.aaapp.Util.DateTools;
 import com.example.aa.aaapp.database.SQLiteDALBase;
+import com.example.aa.aaapp.database.interfaces.DQLiteBaseIF;
+import com.example.aa.aaapp.database.interfaces.SQLiteDALPayoutIF;
 import com.example.aa.aaapp.model.ModelPayout;
 
-public class SQLiteDALPayout extends SQLiteDALBase {
+public class SQLiteDALPayout extends SQLiteDALBase implements SQLiteDALPayoutIF {
 
 	public SQLiteDALPayout(Context p_Context) {
 		super(p_Context);

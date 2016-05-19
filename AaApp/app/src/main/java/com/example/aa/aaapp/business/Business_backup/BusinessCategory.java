@@ -1,8 +1,5 @@
-package com.example.aa.aaapp.business;
+package com.example.aa.aaapp.business.Business_backup;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,14 +7,16 @@ import android.widget.ArrayAdapter;
 
 import com.example.aa.aaapp.R;
 import com.example.aa.aaapp.business.base.Business_Base;
-import com.example.aa.aaapp.database.interfaces.SQLiteDALCategoryIF;
 import com.example.aa.aaapp.database.sqldal.SQLiteDALCategory;
 import com.example.aa.aaapp.model.ModelCategory;
 import com.example.aa.aaapp.model.ModelCategoryTotal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BusinessCategory extends Business_Base {
 	
-	private SQLiteDALCategoryIF m_SqLiteDALCategory;
+	private SQLiteDALCategory m_SqLiteDALCategory;
 	private final String  TYPE_FLAG = " And TypeFlag= '" + getString(R.string.PayoutTypeFlag) + "'";
 	
 	public BusinessCategory(Context p_Context)
@@ -28,7 +27,7 @@ public class BusinessCategory extends Business_Base {
 	
 	public Boolean InsertCategory(ModelCategory p_Info)
 	{
-		//m_SqLiteDALCategory.beginTransaction();
+		m_SqLiteDALCategory.beginTransaction();
 		try {
 			Boolean _Result = m_SqLiteDALCategory.InsertCategory(p_Info);
 			Boolean _Result2 = true;
@@ -48,7 +47,7 @@ public class BusinessCategory extends Business_Base {
 			
 			if(_Result && _Result2)
 			{
-				//m_SqLiteDALCategory.setTransactionSuccessful();
+				m_SqLiteDALCategory.setTransactionSuccessful();
 				return true;
 			}
 			else {
@@ -57,7 +56,7 @@ public class BusinessCategory extends Business_Base {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			//m_SqLiteDALCategory.endTransaction();
+			m_SqLiteDALCategory.endTransaction();
 		}
 	}
 	
@@ -100,7 +99,7 @@ public class BusinessCategory extends Business_Base {
 	
 	public Boolean UpdateCategoryByCategoryID(ModelCategory p_Info)
 	{
-		//m_SqLiteDALCategory.beginTransaction();
+		m_SqLiteDALCategory.beginTransaction();
 		try {
 			String _Condition = " CategoryID = " + p_Info.GetCategoryID();
 			Boolean _Result = m_SqLiteDALCategory.UpdateCategory(_Condition, p_Info);
@@ -122,7 +121,7 @@ public class BusinessCategory extends Business_Base {
 			
 			if(_Result && _Result2)
 			{
-				//m_SqLiteDALCategory.setTransactionSuccessful();
+				m_SqLiteDALCategory.setTransactionSuccessful();
 				return true;
 			}
 			else {
@@ -131,7 +130,7 @@ public class BusinessCategory extends Business_Base {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			//m_SqLiteDALCategory.endTransaction();
+			m_SqLiteDALCategory.endTransaction();
 		}
 	}
 	

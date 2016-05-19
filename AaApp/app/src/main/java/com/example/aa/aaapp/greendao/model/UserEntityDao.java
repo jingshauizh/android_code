@@ -26,7 +26,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property UserId = new Property(1, Integer.class, "userId", false, "USER_ID");
         public final static Property UserStatus = new Property(2, String.class, "userStatus", false, "USER_STATUS");
-        public final static Property UserName = new Property(3, int.class, "userName", false, "USER_NAME");
+        public final static Property UserName = new Property(3, String.class, "userName", false, "USER_NAME");
         public final static Property CreateDate = new Property(4, java.util.Date.class, "createDate", false, "CREATE_DATE");
     };
 
@@ -46,7 +46,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"USER_ID\" INTEGER," + // 1: userId
                 "\"USER_STATUS\" TEXT NOT NULL ," + // 2: userStatus
-                "\"USER_NAME\" INTEGER NOT NULL ," + // 3: userName
+                "\"USER_NAME\" TEXT NOT NULL ," + // 3: userName
                 "\"CREATE_DATE\" INTEGER NOT NULL );"); // 4: createDate
         // Add Indexes
         db.execSQL("CREATE INDEX " + constraint + "IDX_USER_ENTITY_USER_ID ON USER_ENTITY" +
@@ -74,7 +74,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
             stmt.bindLong(2, userId);
         }
         stmt.bindString(3, entity.getUserStatus());
-        stmt.bindLong(4, entity.getUserName());
+        stmt.bindString(4, entity.getUserName());
         stmt.bindLong(5, entity.getCreateDate().getTime());
     }
 
@@ -91,7 +91,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // userId
             cursor.getString(offset + 2), // userStatus
-            cursor.getInt(offset + 3), // userName
+            cursor.getString(offset + 3), // userName
             new java.util.Date(cursor.getLong(offset + 4)) // createDate
         );
         return entity;
@@ -103,7 +103,7 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
         entity.setUserStatus(cursor.getString(offset + 2));
-        entity.setUserName(cursor.getInt(offset + 3));
+        entity.setUserName(cursor.getString(offset + 3));
         entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 4)));
      }
     

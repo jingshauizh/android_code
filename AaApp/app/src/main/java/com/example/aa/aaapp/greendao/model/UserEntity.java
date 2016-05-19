@@ -16,7 +16,8 @@ public class UserEntity {
     private Integer userId;
     /** Not-null value. */
     private String userStatus;
-    private int userName;
+    /** Not-null value. */
+    private String userName;
     /** Not-null value. */
     private java.util.Date createDate;
 
@@ -27,7 +28,7 @@ public class UserEntity {
         this.id = id;
     }
 
-    public UserEntity(Long id, Integer userId, String userStatus, int userName, java.util.Date createDate) {
+    public UserEntity(Long id, Integer userId, String userStatus, String userName, java.util.Date createDate) {
         this.id = id;
         this.userId = userId;
         this.userStatus = userStatus;
@@ -67,17 +68,19 @@ public class UserEntity {
         this.userStatus = userStatus;
     }
 
+    /** Not-null value. */
     /**
      * JavaDoc test getter
      */
-    public int getUserName() {
+    public String getUserName() {
         return userName;
     }
 
+    /** Not-null value; ensure this value is available before it is saved to the database. */
     /**
      * JavaDoc test getter
      */
-    public void setUserName(int userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 

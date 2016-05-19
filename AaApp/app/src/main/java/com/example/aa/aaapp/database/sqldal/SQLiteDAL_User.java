@@ -8,6 +8,7 @@ import android.graphics.AvoidXfermode;
 
 import com.example.aa.aaapp.R;
 import com.example.aa.aaapp.database.SQLiteDALBase;
+import com.example.aa.aaapp.database.interfaces.SQLiteDAL_UserIF;
 import com.example.aa.aaapp.model.Model_User;
 
 import java.util.Calendar;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Created by Administrator on 16-4-17.
  */
-public class SQLiteDAL_User extends SQLiteDALBase {
+public class SQLiteDAL_User extends SQLiteDALBase implements SQLiteDAL_UserIF {
 
     public SQLiteDAL_User(Context p_context) {
         super(p_context);
