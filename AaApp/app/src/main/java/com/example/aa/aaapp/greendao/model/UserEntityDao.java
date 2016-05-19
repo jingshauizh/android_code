@@ -14,7 +14,7 @@ import com.example.aa.aaapp.greendao.model.UserEntity;
 /** 
  * DAO for table "USER_ENTITY".
 */
-public class UserEntityDao extends AbstractDao<UserEntity, Long> {
+public class UserEntityDao extends AbstractDao<UserEntity, Void> {
 
     public static final String TABLENAME = "USER_ENTITY";
 
@@ -23,11 +23,10 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserId = new Property(1, Integer.class, "userId", false, "USER_ID");
-        public final static Property UserStatus = new Property(2, String.class, "userStatus", false, "USER_STATUS");
-        public final static Property UserName = new Property(3, String.class, "userName", false, "USER_NAME");
-        public final static Property CreateDate = new Property(4, java.util.Date.class, "createDate", false, "CREATE_DATE");
+        public final static Property UserId = new Property(0, Integer.class, "userId", false, "USER_ID");
+        public final static Property UserStatus = new Property(1, String.class, "userStatus", false, "USER_STATUS");
+        public final static Property UserName = new Property(2, String.class, "userName", false, "USER_NAME");
+        public final static Property CreateDate = new Property(3, java.util.Date.class, "createDate", false, "CREATE_DATE");
     };
 
 
@@ -43,11 +42,10 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_ENTITY\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"USER_ID\" INTEGER," + // 1: userId
-                "\"USER_STATUS\" TEXT NOT NULL ," + // 2: userStatus
-                "\"USER_NAME\" TEXT NOT NULL ," + // 3: userName
-                "\"CREATE_DATE\" INTEGER NOT NULL );"); // 4: createDate
+                "\"USER_ID\" INTEGER," + // 0: userId
+                "\"USER_STATUS\" TEXT NOT NULL ," + // 1: userStatus
+                "\"USER_NAME\" TEXT NOT NULL ," + // 2: userName
+                "\"CREATE_DATE\" INTEGER NOT NULL );"); // 3: createDate
         // Add Indexes
         db.execSQL("CREATE INDEX " + constraint + "IDX_USER_ENTITY_USER_ID ON USER_ENTITY" +
                 " (\"USER_ID\");");
@@ -64,35 +62,29 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     protected void bindValues(SQLiteStatement stmt, UserEntity entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
- 
         Integer userId = entity.getUserId();
         if (userId != null) {
-            stmt.bindLong(2, userId);
+            stmt.bindLong(1, userId);
         }
-        stmt.bindString(3, entity.getUserStatus());
-        stmt.bindString(4, entity.getUserName());
-        stmt.bindLong(5, entity.getCreateDate().getTime());
+        stmt.bindString(2, entity.getUserStatus());
+        stmt.bindString(3, entity.getUserName());
+        stmt.bindLong(4, entity.getCreateDate().getTime());
     }
 
     /** @inheritdoc */
     @Override
-    public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+    public Void readKey(Cursor cursor, int offset) {
+        return null;
     }    
 
     /** @inheritdoc */
     @Override
     public UserEntity readEntity(Cursor cursor, int offset) {
         UserEntity entity = new UserEntity( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // userId
-            cursor.getString(offset + 2), // userStatus
-            cursor.getString(offset + 3), // userName
-            new java.util.Date(cursor.getLong(offset + 4)) // createDate
+            cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0), // userId
+            cursor.getString(offset + 1), // userStatus
+            cursor.getString(offset + 2), // userName
+            new java.util.Date(cursor.getLong(offset + 3)) // createDate
         );
         return entity;
     }
@@ -100,28 +92,23 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, UserEntity entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setUserStatus(cursor.getString(offset + 2));
-        entity.setUserName(cursor.getString(offset + 3));
-        entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 4)));
+        entity.setUserId(cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0));
+        entity.setUserStatus(cursor.getString(offset + 1));
+        entity.setUserName(cursor.getString(offset + 2));
+        entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 3)));
      }
     
     /** @inheritdoc */
     @Override
-    protected Long updateKeyAfterInsert(UserEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
+    protected Void updateKeyAfterInsert(UserEntity entity, long rowId) {
+        // Unsupported or missing PK type
+        return null;
     }
     
     /** @inheritdoc */
     @Override
-    public Long getKey(UserEntity entity) {
-        if(entity != null) {
-            return entity.getId();
-        } else {
-            return null;
-        }
+    public Void getKey(UserEntity entity) {
+        return null;
     }
 
     /** @inheritdoc */

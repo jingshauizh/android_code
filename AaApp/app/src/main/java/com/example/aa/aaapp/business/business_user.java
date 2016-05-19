@@ -30,9 +30,9 @@ public class Business_User extends Business_Base {
         return _result;
     }
 
-    public boolean deleteUserById(long userId){
-        //String _Condition = "  user_id="+p_userid;
-        boolean _result =m_SQLiteDAL_User.deleteUser( userId);
+    public boolean deleteUserById(int userId){
+        List<UserEntity>  userEntityList= m_SQLiteDAL_User.getUser(userId);
+        boolean _result =m_SQLiteDAL_User.deleteUser( userEntityList.get(0));
         return _result;
     }
 
@@ -61,14 +61,10 @@ public class Business_User extends Business_Base {
         return null;
     }
 
-    public boolean isExistUserByUserName(String pUserName,Integer pUserID)
+    public boolean isExistUserByUserName(String pUserName)
     {
-        String _Condition = " And user_name = '" + pUserName + "'";
-        if(pUserID != null)
-        {
-            _Condition += " And user_id <> " + pUserID;
-        }
-        List _List = m_SQLiteDAL_User.getUser(_Condition);
+
+        List _List = m_SQLiteDAL_User.getUserByName(pUserName);
         if (_List.size() > 0) {
             return true;
         } else {
@@ -93,7 +89,7 @@ public class Business_User extends Business_Base {
     }
 
     public UserEntity getModelUserByUserID(int pUserID) {
-        List<UserEntity> _List = m_SQLiteDAL_User.getUser(" And user_id = " + pUserID);
+        List<UserEntity> _List = m_SQLiteDAL_User.getUser(pUserID);
         if (_List.size() == 1) {
             return _List.get(0);
         }

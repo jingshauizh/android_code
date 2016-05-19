@@ -9,10 +9,6 @@ package com.example.aa.aaapp.greendao.model;
 // This is another test comment, you could also apply annotations like this
 public class PayoutEntity {
 
-    /**
-     * JavaDoc test field
-     */
-    private Long id;
     private Integer payoutId;
     private int accountBookId;
     /** Not-null value. */
@@ -39,12 +35,7 @@ public class PayoutEntity {
     public PayoutEntity() {
     }
 
-    public PayoutEntity(Long id) {
-        this.id = id;
-    }
-
-    public PayoutEntity(Long id, Integer payoutId, int accountBookId, String accountBookName, int categoryId, String categoryName, String path, int payWayId, int placeId, long amount, java.util.Date payoutDate, String payoutType, int payoutUserId, String comment, java.util.Date createDate, int state) {
-        this.id = id;
+    public PayoutEntity(Integer payoutId, int accountBookId, String accountBookName, int categoryId, String categoryName, String path, int payWayId, int placeId, long amount, java.util.Date payoutDate, String payoutType, int payoutUserId, String comment, java.util.Date createDate, int state) {
         this.payoutId = payoutId;
         this.accountBookId = accountBookId;
         this.accountBookName = accountBookName;
@@ -60,14 +51,6 @@ public class PayoutEntity {
         this.comment = comment;
         this.createDate = createDate;
         this.state = state;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getPayoutId() {

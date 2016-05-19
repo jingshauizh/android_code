@@ -35,6 +35,12 @@ public  class AdapterUser extends AdapterSliderBase {
        setList(_Model_UserList);
     }
 
+    public Boolean refreshData(){
+        List<UserEntity> _Model_UserList = m_Business_User.getNotHideUsers();
+        setList(_Model_UserList);
+        return true;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder _holder;

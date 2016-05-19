@@ -3,6 +3,8 @@ package com.example.aa.aaapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +19,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.aa.aaapp.Util.HandlerConstraint;
 import com.example.aa.aaapp.Util.RegexTools;
 import com.example.aa.aaapp.activity.ActivityFrame;
 import com.example.aa.aaapp.adapter.AdapterUser;
@@ -37,6 +40,7 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
     private AdapterUser _AdapterUser;
     private Business_User mBusinessUser;
     private UserEntity mSelectModlUser;
+    public Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +60,22 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
         });
         appendMainBody(R.layout.user_layout);
 
+        mHandler = new Handler(){
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case HandlerConstraint.DATA_UPDATE:
+                        bindData();
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
+
+
         initVariable();
         initView();
         initListeners();
-        bindData();
+        bindData2();
         this.createSliderMenu(R.array.SlideMenuUser);
     }
 
@@ -106,6 +122,12 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
         return super.onContextItemSelected(item);
     }
     public void bindData(){
+        _AdapterUser.refreshData();
+        _AdapterUser.notifyDataSetChanged();
+    }
+
+    public void bindData2(){
+
         lvUserList.setAdapter(_AdapterUser);
         SetTitle();
     }
@@ -194,7 +216,7 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
                 setAlertDialogIsClose(dialog, true);
             }
 
-            _CheckResult = mBusinessUser.isExistUserByUserName(_UserName, mModelUser.getUserId());
+            _CheckResult = mBusinessUser.isExistUserByUserName(_UserName);
 
             if (_CheckResult) {
                 Toast.makeText(getApplicationContext(), getString(R.string.CheckDataTextUserExist), Toast.LENGTH_SHORT).show();
@@ -206,14 +228,15 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
                 setAlertDialogIsClose(dialog, true);
             }
 
+
+
             mModelUser.setUserName(etUserName.getText().toString());
             mModelUser.setUserStatus(UserStatus.USE.toString());
             mModelUser.setCreateDate(new Date());
-            mModelUser.setUserId((int)(new Date()).getTime());
 
             boolean _Result = false;
 
-            if (mModelUser.getId() == null ||mModelUser.getId() ==0) {
+            if (mModelUser.getUserId() == null ||mModelUser.getUserId() ==0) {
                 _Result = mBusinessUser.insertUser(mModelUser);
             }
             else {
@@ -221,7 +244,13 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
             }
 
             if (_Result) {
-                bindData();
+               // bindData();
+                Message message = new Message();
+                message.what = HandlerConstraint.DATA_UPDATE;
+                if(UserActivity.this.mHandler != null){
+                    UserActivity.this.mHandler.sendMessage(message);
+                }
+
             }
             else {
                 Toast.makeText(UserActivity.this, getString(R.string.TipsAddFail), Toast.LENGTH_SHORT).show();

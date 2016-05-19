@@ -2,17 +2,14 @@ package com.example.aa.aaapp.greendao.dbdal;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.example.aa.aaapp.MyApplication;
-
 import com.example.aa.aaapp.R;
+import com.example.aa.aaapp.greendao.UserStatus;
 import com.example.aa.aaapp.greendao.model.UserEntity;
 import com.example.aa.aaapp.greendao.model.UserEntityDao;
+import java.util.Date;
 import java.util.List;
-
 import de.greenrobot.dao.query.Query;
-import de.greenrobot.dao.query.WhereCondition;
 
 /**
  * Created by eqruvvz on 5/19/2016.
@@ -23,6 +20,7 @@ public class GreenDaoDALUser extends GreenDaoDALBase  {
     public GreenDaoDALUser(Context p_context) {
         super(p_context);
         mUserEntityDao = MyApplication.getDaoSession(p_context).getUserEntityDao();
+        initDefaultData();
     }
     
     public Boolean insertUser(UserEntity p_user) {
@@ -34,8 +32,8 @@ public class GreenDaoDALUser extends GreenDaoDALBase  {
     }
 
 
-    public Boolean deleteUser(long userId) {
-        mUserEntityDao.deleteByKey(userId);
+    public Boolean deleteUser(UserEntity p_user) {
+        mUserEntityDao.delete(p_user);
         return true;
     }
 
@@ -59,17 +57,28 @@ public class GreenDaoDALUser extends GreenDaoDALBase  {
     }
 
 
-    public List<UserEntity> getUser(String pCondition) {
-        Query query = mUserEntityDao.queryBuilder().where(UserEntityDao.Properties.Id.eq(pCondition)).build();
+    public List<UserEntity> getUser(int pCondition) {
+        Query query = mUserEntityDao.queryBuilder().where(UserEntityDao.Properties.UserId.eq(pCondition)).build();
+        return query.list();
+    }
+
+    public List<UserEntity> getUserByName(String userName) {
+        Query query = mUserEntityDao.queryBuilder().where(UserEntityDao.Properties.UserName.eq(userName)).build();
         return query.list();
     }
 
 
-    public void initDefaultData(SQLiteDatabase p_Database) {
+    public void initDefaultData( ) {
         UserEntity _UserEntity = new UserEntity();
         String []  _userStr = getContext().getResources().getStringArray(R.array.initDefaultUsername);
+        List<UserEntity> userEntityList = getUserByName(_userStr[0]);
+        if(userEntityList.size() > 0){
+            return;
+        }
         for (int i=0; i<_userStr.length;i++){
             _UserEntity.setUserName(_userStr[i]);
+            _UserEntity.setUserStatus(UserStatus.USE.toString());
+            _UserEntity.setCreateDate(new Date());
             mUserEntityDao.insert(_UserEntity);
         }
     }

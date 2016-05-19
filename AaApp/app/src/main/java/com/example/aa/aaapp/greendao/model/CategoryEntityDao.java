@@ -14,7 +14,7 @@ import com.example.aa.aaapp.greendao.model.CategoryEntity;
 /** 
  * DAO for table "CATEGORY_ENTITY".
 */
-public class CategoryEntityDao extends AbstractDao<CategoryEntity, Long> {
+public class CategoryEntityDao extends AbstractDao<CategoryEntity, Void> {
 
     public static final String TABLENAME = "CATEGORY_ENTITY";
 
@@ -23,14 +23,13 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property CategoryId = new Property(1, Integer.class, "categoryId", false, "CATEGORY_ID");
-        public final static Property CategoryName = new Property(2, String.class, "categoryName", false, "CATEGORY_NAME");
-        public final static Property TypeFlag = new Property(3, int.class, "typeFlag", false, "TYPE_FLAG");
-        public final static Property ParentId = new Property(4, int.class, "parentId", false, "PARENT_ID");
-        public final static Property Path = new Property(5, String.class, "path", false, "PATH");
-        public final static Property State = new Property(6, int.class, "state", false, "STATE");
-        public final static Property CreateDate = new Property(7, java.util.Date.class, "createDate", false, "CREATE_DATE");
+        public final static Property CategoryId = new Property(0, Integer.class, "categoryId", false, "CATEGORY_ID");
+        public final static Property CategoryName = new Property(1, String.class, "categoryName", false, "CATEGORY_NAME");
+        public final static Property TypeFlag = new Property(2, int.class, "typeFlag", false, "TYPE_FLAG");
+        public final static Property ParentId = new Property(3, int.class, "parentId", false, "PARENT_ID");
+        public final static Property Path = new Property(4, String.class, "path", false, "PATH");
+        public final static Property State = new Property(5, int.class, "state", false, "STATE");
+        public final static Property CreateDate = new Property(6, java.util.Date.class, "createDate", false, "CREATE_DATE");
     };
 
 
@@ -46,14 +45,13 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"CATEGORY_ENTITY\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"CATEGORY_ID\" INTEGER," + // 1: categoryId
-                "\"CATEGORY_NAME\" TEXT NOT NULL ," + // 2: categoryName
-                "\"TYPE_FLAG\" INTEGER NOT NULL ," + // 3: typeFlag
-                "\"PARENT_ID\" INTEGER NOT NULL ," + // 4: parentId
-                "\"PATH\" TEXT NOT NULL ," + // 5: path
-                "\"STATE\" INTEGER NOT NULL ," + // 6: state
-                "\"CREATE_DATE\" INTEGER NOT NULL );"); // 7: createDate
+                "\"CATEGORY_ID\" INTEGER," + // 0: categoryId
+                "\"CATEGORY_NAME\" TEXT NOT NULL ," + // 1: categoryName
+                "\"TYPE_FLAG\" INTEGER NOT NULL ," + // 2: typeFlag
+                "\"PARENT_ID\" INTEGER NOT NULL ," + // 3: parentId
+                "\"PATH\" TEXT NOT NULL ," + // 4: path
+                "\"STATE\" INTEGER NOT NULL ," + // 5: state
+                "\"CREATE_DATE\" INTEGER NOT NULL );"); // 6: createDate
         // Add Indexes
         db.execSQL("CREATE INDEX " + constraint + "IDX_CATEGORY_ENTITY_CATEGORY_ID ON CATEGORY_ENTITY" +
                 " (\"CATEGORY_ID\");");
@@ -70,41 +68,35 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Long> {
     protected void bindValues(SQLiteStatement stmt, CategoryEntity entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
- 
         Integer categoryId = entity.getCategoryId();
         if (categoryId != null) {
-            stmt.bindLong(2, categoryId);
+            stmt.bindLong(1, categoryId);
         }
-        stmt.bindString(3, entity.getCategoryName());
-        stmt.bindLong(4, entity.getTypeFlag());
-        stmt.bindLong(5, entity.getParentId());
-        stmt.bindString(6, entity.getPath());
-        stmt.bindLong(7, entity.getState());
-        stmt.bindLong(8, entity.getCreateDate().getTime());
+        stmt.bindString(2, entity.getCategoryName());
+        stmt.bindLong(3, entity.getTypeFlag());
+        stmt.bindLong(4, entity.getParentId());
+        stmt.bindString(5, entity.getPath());
+        stmt.bindLong(6, entity.getState());
+        stmt.bindLong(7, entity.getCreateDate().getTime());
     }
 
     /** @inheritdoc */
     @Override
-    public Long readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
+    public Void readKey(Cursor cursor, int offset) {
+        return null;
     }    
 
     /** @inheritdoc */
     @Override
     public CategoryEntity readEntity(Cursor cursor, int offset) {
         CategoryEntity entity = new CategoryEntity( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // categoryId
-            cursor.getString(offset + 2), // categoryName
-            cursor.getInt(offset + 3), // typeFlag
-            cursor.getInt(offset + 4), // parentId
-            cursor.getString(offset + 5), // path
-            cursor.getInt(offset + 6), // state
-            new java.util.Date(cursor.getLong(offset + 7)) // createDate
+            cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0), // categoryId
+            cursor.getString(offset + 1), // categoryName
+            cursor.getInt(offset + 2), // typeFlag
+            cursor.getInt(offset + 3), // parentId
+            cursor.getString(offset + 4), // path
+            cursor.getInt(offset + 5), // state
+            new java.util.Date(cursor.getLong(offset + 6)) // createDate
         );
         return entity;
     }
@@ -112,31 +104,26 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Long> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, CategoryEntity entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setCategoryId(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setCategoryName(cursor.getString(offset + 2));
-        entity.setTypeFlag(cursor.getInt(offset + 3));
-        entity.setParentId(cursor.getInt(offset + 4));
-        entity.setPath(cursor.getString(offset + 5));
-        entity.setState(cursor.getInt(offset + 6));
-        entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 7)));
+        entity.setCategoryId(cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0));
+        entity.setCategoryName(cursor.getString(offset + 1));
+        entity.setTypeFlag(cursor.getInt(offset + 2));
+        entity.setParentId(cursor.getInt(offset + 3));
+        entity.setPath(cursor.getString(offset + 4));
+        entity.setState(cursor.getInt(offset + 5));
+        entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 6)));
      }
     
     /** @inheritdoc */
     @Override
-    protected Long updateKeyAfterInsert(CategoryEntity entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
+    protected Void updateKeyAfterInsert(CategoryEntity entity, long rowId) {
+        // Unsupported or missing PK type
+        return null;
     }
     
     /** @inheritdoc */
     @Override
-    public Long getKey(CategoryEntity entity) {
-        if(entity != null) {
-            return entity.getId();
-        } else {
-            return null;
-        }
+    public Void getKey(CategoryEntity entity) {
+        return null;
     }
 
     /** @inheritdoc */

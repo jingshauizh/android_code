@@ -39,8 +39,6 @@ public class AaGenaerator {
         userEntity.setJavaDoc("This entity is used by internal tests of greenDAO.\n" +
                 "(This JavaDoc is defined in the generator project.)");
         userEntity.setCodeBeforeClass("// This is another test comment, you could also apply annotations like this");
-        userEntity.addIdProperty().javaDocField("JavaDoc test field");
-
         userEntity.addIntProperty("userId").index();
         userEntity.addStringProperty("userStatus").notNull().javaDocGetterAndSetter("JavaDoc test getter and setter");
         userEntity.addStringProperty("userName").notNull().javaDocGetterAndSetter("JavaDoc test getter");
@@ -68,8 +66,6 @@ public class AaGenaerator {
         accountBook.setJavaDoc("This entity is used for categoryEntity.\n" +
                 "(This JavaDoc is defined in the generator project.)");
         accountBook.setCodeBeforeClass("// This is another test comment, you could also apply annotations like this");
-        accountBook.addIdProperty().javaDocField("JavaDoc test field");
-
         accountBook.addIntProperty("categoryId").index();
         accountBook.addStringProperty("categoryName").notNull().javaDocGetterAndSetter("JavaDoc test getter and setter");
         accountBook.addIntProperty("typeFlag").notNull().javaDocGetterAndSetter("JavaDoc test getter");
@@ -85,7 +81,7 @@ public class AaGenaerator {
         payoutEntity.setJavaDoc("This entity is used for payoutEntity.\n" +
                 "(This JavaDoc is defined in the generator project.)");
         payoutEntity.setCodeBeforeClass("// This is another test comment, you could also apply annotations like this");
-        payoutEntity.addIdProperty().javaDocField("JavaDoc test field");
+
 
         payoutEntity.addIntProperty("payoutId").index();
         payoutEntity.addIntProperty("accountBookId").notNull();

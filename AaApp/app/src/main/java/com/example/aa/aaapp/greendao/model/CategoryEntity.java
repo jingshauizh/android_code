@@ -9,10 +9,6 @@ package com.example.aa.aaapp.greendao.model;
 // This is another test comment, you could also apply annotations like this
 public class CategoryEntity {
 
-    /**
-     * JavaDoc test field
-     */
-    private Long id;
     private Integer categoryId;
     /** Not-null value. */
     private String categoryName;
@@ -27,12 +23,7 @@ public class CategoryEntity {
     public CategoryEntity() {
     }
 
-    public CategoryEntity(Long id) {
-        this.id = id;
-    }
-
-    public CategoryEntity(Long id, Integer categoryId, String categoryName, int typeFlag, int parentId, String path, int state, java.util.Date createDate) {
-        this.id = id;
+    public CategoryEntity(Integer categoryId, String categoryName, int typeFlag, int parentId, String path, int state, java.util.Date createDate) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.typeFlag = typeFlag;
@@ -40,14 +31,6 @@ public class CategoryEntity {
         this.path = path;
         this.state = state;
         this.createDate = createDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getCategoryId() {
