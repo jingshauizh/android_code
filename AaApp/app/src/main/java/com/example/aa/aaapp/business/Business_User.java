@@ -6,6 +6,7 @@ import android.content.Context;
 import com.example.aa.aaapp.business.base.Business_Base;
 import com.example.aa.aaapp.database.interfaces.SQLiteDAL_UserIF;
 import com.example.aa.aaapp.database.sqldal.SQLiteDAL_User;
+import com.example.aa.aaapp.greendao.UserStatus;
 import com.example.aa.aaapp.greendao.dbdal.GreenDaoDALUser;
 import com.example.aa.aaapp.greendao.model.UserEntity;
 import com.example.aa.aaapp.model.Model_User;
@@ -40,7 +41,7 @@ public class Business_User extends Business_Base {
 
     public boolean updateUserById(UserEntity p_modelUser){
         String _Condition = "  user_id="+p_modelUser.getUserId();
-        boolean _result =m_SQLiteDAL_User.updateUser(p_modelUser, _Condition);
+        boolean _result =m_SQLiteDAL_User.updateUser(p_modelUser);
         return _result;
     }
 
@@ -77,12 +78,26 @@ public class Business_User extends Business_Base {
         }
     }
 
-    public Boolean hideUserByUserID(long p_UserID)
+/*    public Boolean hideUserByUserID(long p_UserID)
     {
         String _Condition = " user_id = " + p_UserID;
         ContentValues _ContentValues = new ContentValues();
         _ContentValues.put("state", Model_User.UserStatus.DET.toString());
         Boolean _Result = m_SQLiteDAL_User.updateUser(_Condition, _ContentValues);
+
+        if(_Result)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }*/
+
+    public Boolean hideUserByUserEntity(UserEntity pUserEntity)
+    {
+        pUserEntity.setUserStatus(UserStatus.DET.toString());
+        Boolean _Result = m_SQLiteDAL_User.updateUser(pUserEntity);
 
         if(_Result)
         {

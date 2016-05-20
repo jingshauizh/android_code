@@ -266,7 +266,7 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
     {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            boolean _Result = mBusinessUser.hideUserByUserID(mSelectModlUser.getUserId());
+            boolean _Result = mBusinessUser.hideUserByUserEntity(mSelectModlUser);
 
             if (_Result == true) {
                 bindData();

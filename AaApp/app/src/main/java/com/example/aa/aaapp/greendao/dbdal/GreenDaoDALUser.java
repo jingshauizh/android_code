@@ -38,7 +38,7 @@ public class GreenDaoDALUser extends GreenDaoDALBase  {
     }
 
 
-    public Boolean updateUser(UserEntity p_user, String p_condition) {
+    public Boolean updateUser(UserEntity p_user) {
         mUserEntityDao.update(p_user);
         return true;
     }
@@ -51,7 +51,7 @@ public class GreenDaoDALUser extends GreenDaoDALBase  {
 
     public List<UserEntity> getUsers(String p_condition) {
 
-        Query query = mUserEntityDao.queryBuilder().build();
+        Query query = mUserEntityDao.queryBuilder().where(UserEntityDao.Properties.UserStatus.notEq(UserStatus.DET.toString())).build();
         // 查询结果以 List 返回
         return query.list();
     }
