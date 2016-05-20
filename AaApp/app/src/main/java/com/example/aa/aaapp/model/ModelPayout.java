@@ -53,7 +53,7 @@ public class ModelPayout implements Serializable {
 	/**
 	 * 账本名称ID外键
 	 */
-	public int GetAccountBookID() {
+	public long GetAccountBookID() {
 		return m_AccountBookID;
 	}
 	/**

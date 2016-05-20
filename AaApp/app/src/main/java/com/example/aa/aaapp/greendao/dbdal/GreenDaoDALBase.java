@@ -2,6 +2,9 @@ package com.example.aa.aaapp.greendao.dbdal;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.aa.aaapp.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,10 @@ public class GreenDaoDALBase {
     }
     protected Context getContext(){
         return this.m_context;
+    }
+
+    public SQLiteDatabase getDataBase(){
+        return  MyApplication.getDaoMaster(m_context).getDatabase();
     }
 
 

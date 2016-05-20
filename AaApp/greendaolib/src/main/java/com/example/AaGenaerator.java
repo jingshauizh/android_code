@@ -52,6 +52,7 @@ public class AaGenaerator {
                 "(This JavaDoc is defined in the generator project.)");
         accountBook.setCodeBeforeClass("// This is another test comment, you could also apply annotations like this");
         accountBook.addLongProperty("accountBookId").primaryKey().autoincrement();
+        accountBook.addStringProperty("accountBookName").notNull().javaDocGetterAndSetter("JavaDoc test getter and setter");
         accountBook.addStringProperty("state").notNull().javaDocGetterAndSetter("JavaDoc test getter and setter");
         accountBook.addIntProperty("isDefault").notNull().javaDocGetterAndSetter("JavaDoc test getter");
         accountBook.addDateProperty("createDate").notNull();

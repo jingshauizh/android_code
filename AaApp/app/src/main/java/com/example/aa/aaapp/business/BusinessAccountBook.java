@@ -1,39 +1,33 @@
 package com.example.aa.aaapp.business;
 
-import java.text.SimpleDateFormat;
+import android.content.Context;
+
+import com.example.aa.aaapp.business.base.Business_Base;
+import com.example.aa.aaapp.greendao.dbdal.GreenDaoDALAccountBook;
+import com.example.aa.aaapp.greendao.model.AccountBookEntity;
+
 import java.util.List;
 
+public class BusinessAccountBook extends Business_Base {
 
-import android.R.integer;
-import android.R.string;
-import android.content.ContentValues;
-import android.content.Context;
-import android.util.Log;
-
-import com.example.aa.aaapp.database.interfaces.SQLiteDALAccountBookIF;
-import com.example.aa.aaapp.database.sqldal.SQLiteDALAccountBook;
-import com.example.aa.aaapp.model.ModelAccountBook;
-
-public class BusinessAccountBook extends Business_User {
-
-	private SQLiteDALAccountBookIF m_SqLiteDALAccountBook;
+	private GreenDaoDALAccountBook mGreenDaoDALAccountBook;
 
 	public BusinessAccountBook(Context p_Context) {
 		super(p_Context);
-		m_SqLiteDALAccountBook = new SQLiteDALAccountBook(p_Context);
+		mGreenDaoDALAccountBook = new GreenDaoDALAccountBook(p_Context);
 	}
 
-	public Boolean InsertAccountBook(ModelAccountBook p_Info) {
-		//m_SqLiteDALAccountBook.beginTransaction();
+	public Boolean insertAccountBook(AccountBookEntity pAccountBookEntity) {
+		mGreenDaoDALAccountBook.getDataBase().beginTransaction();
 		try {
-			Boolean _Result = m_SqLiteDALAccountBook.InsertAccountBook(p_Info);
-			Boolean _Result2 = true;
-			if (p_Info.GetIsDefault() == 1 && _Result) {
-				_Result2 = SetIsDefault(p_Info.GetAccountBookID());
+			Boolean _Result = mGreenDaoDALAccountBook.insertAccountBook(pAccountBookEntity);
+			Boolean _Result2 = Boolean.TRUE;
+			if (pAccountBookEntity.getIsDefault() == 1 && _Result) {
+				_Result2 = setIsDefault(pAccountBookEntity);
 			}
 
 			if (_Result && _Result2) {
-				//m_SqLiteDALAccountBook.setTransactionSuccessful();
+				mGreenDaoDALAccountBook.getDataBase().setTransactionSuccessful();
 				return true;
 			} else {
 				return false;
@@ -41,26 +35,27 @@ public class BusinessAccountBook extends Business_User {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			//m_SqLiteDALAccountBook.endTransaction();
+			mGreenDaoDALAccountBook.getDataBase().endTransaction();
 		}
 	}
 
-	public Boolean DeleteAccountBookByAccountBookID(int p_AccountBookID) {
-		//m_SqLiteDALAccountBook.beginTransaction();
+
+
+	public Boolean deleteAccountBookByAccountBookID(long p_AccountBookID) {
+		mGreenDaoDALAccountBook.getDataBase().beginTransaction();
 		try {
-			String _Condition = " And AccountBookID = " + p_AccountBookID;
-			Boolean _Result = m_SqLiteDALAccountBook
-					.DeleteAccountBook(_Condition);
+			AccountBookEntity _AccountBookEntity = mGreenDaoDALAccountBook.getAccountBookById(p_AccountBookID);
+			Boolean _Result = mGreenDaoDALAccountBook.deleteAccountBook(_AccountBookEntity);
 			Boolean _Result2 = true;
-			if (_Result) {
-				BusinessPayout _BusinessPayout = new BusinessPayout(
-						getContext());
-				_Result2 = _BusinessPayout
-						.DeletePayoutByAccountBookID(p_AccountBookID);
-			}
+//			if (_Result) {
+//				BusinessPayout _BusinessPayout = new BusinessPayout(
+//						getContext());
+//				_Result2 = _BusinessPayout
+//						.DeletePayoutByAccountBookID(p_AccountBookID);
+//			}
 
 			if (_Result && _Result2) {
-				//m_SqLiteDALAccountBook.setTransactionSuccessful();
+				mGreenDaoDALAccountBook.getDataBase().setTransactionSuccessful();
 				return true;
 			} else {
 				return false;
@@ -68,23 +63,21 @@ public class BusinessAccountBook extends Business_User {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			//m_SqLiteDALAccountBook.endTransaction();
+			mGreenDaoDALAccountBook.getDataBase().endTransaction();
 		}
 	}
 
-	public Boolean UpdateAccountBookByAccountBookID(ModelAccountBook p_Info) {
-		//m_SqLiteDALAccountBook.beginTransaction();
+	public Boolean updateAccountBookByAccountBookID(AccountBookEntity pAccountBookEntity) {
+		mGreenDaoDALAccountBook.getDataBase().beginTransaction();
 		try {
-			String _Condition = " AccountBookID = " + p_Info.GetAccountBookID();
-			Boolean _Result = m_SqLiteDALAccountBook.UpdateAccountBook(
-					_Condition, p_Info);
+			Boolean _Result = mGreenDaoDALAccountBook.updateAccountBook(pAccountBookEntity);
 			Boolean _Result2 = true;
-			if (p_Info.GetIsDefault() == 1 && _Result) {
-				_Result2 = SetIsDefault(p_Info.GetAccountBookID());
+			if (pAccountBookEntity.getIsDefault() == 1 && _Result) {
+				_Result2 = setIsDefault(pAccountBookEntity);
 			}
 
 			if (_Result && _Result2) {
-				//m_SqLiteDALAccountBook.setTransactionSuccessful();
+				mGreenDaoDALAccountBook.getDataBase().setTransactionSuccessful();
 				return true;
 			} else {
 				return false;
@@ -92,66 +85,35 @@ public class BusinessAccountBook extends Business_User {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			//m_SqLiteDALAccountBook.endTransaction();
+			mGreenDaoDALAccountBook.getDataBase().endTransaction();
 		}
 	}
 
-	public List<ModelAccountBook> GetAccountBook(String p_Condition) {
-		return m_SqLiteDALAccountBook.GetAccountBook(p_Condition);
-	}
 
-	public boolean IsExistAccountBookByAccountBookName(
-			String p_AccountBookName, Integer p_AccountBookID) {
-		String _Condition = " And AccountBookName = '" + p_AccountBookName
-				+ "'";
-		if (p_AccountBookID != null) {
-			_Condition += " And AccountBookID <> " + p_AccountBookID;
-		}
-		List _List = m_SqLiteDALAccountBook.GetAccountBook(_Condition);
-		if (_List.size() > 0) {
+
+	public boolean isExistAccountBookByAccountBookName(String p_AccountBookName) {
+		AccountBookEntity _AccountBookEntity = mGreenDaoDALAccountBook.getAccountBookByName(p_AccountBookName);
+		if (_AccountBookEntity !=null) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public ModelAccountBook GetDefaultModelAccountBook() {
-		List _List = m_SqLiteDALAccountBook
-				.GetAccountBook(" And IsDefault = 1");
-		if (_List.size() == 1) {
-			return (ModelAccountBook) _List.get(0);
-		} else {
-			return null;
-		}
+	public AccountBookEntity getDefaultAccountBookEntity() {
+		return mGreenDaoDALAccountBook.getDefaultAccountBookEntity();
 	}
 
-	public int GetCount() {
-		return m_SqLiteDALAccountBook.getCount("");
+
+	public Boolean setIsDefault(AccountBookEntity pAccountBookEntity) {
+		return mGreenDaoDALAccountBook.setAccountBookDefault(pAccountBookEntity);
 	}
 
-	public Boolean SetIsDefault(int p_ID) {
-		String _Condition = " IsDefault = 1";
-		ContentValues _ContentValues = new ContentValues();
-		_ContentValues.put("IsDefault", 0);
-		Boolean _Result = m_SqLiteDALAccountBook.UpdateAccountBook(_Condition,
-				_ContentValues);
-
-		_Condition = " AccountBookID = " + p_ID;
-		_ContentValues.clear();
-		_ContentValues.put("IsDefault", 1);
-		Boolean _Result2 = m_SqLiteDALAccountBook.UpdateAccountBook(_Condition,
-				_ContentValues);
-
-		if (_Result && _Result2) {
-			return true;
-		} else {
-			return false;
-		}
+	public List<AccountBookEntity> getAccountBooks(){
+		return mGreenDaoDALAccountBook.getAccountBooks();
 	}
 	
-	public String GetAccountBookNameByAccountId(int p_BookId) {
-		String _ConditionString = "And AccountBookID = " + String.valueOf(p_BookId);
-		List<ModelAccountBook> _AccountBooks = m_SqLiteDALAccountBook.GetAccountBook(_ConditionString);
-		return _AccountBooks.get(0).GetAccountBookName();
+	public String getAccountBookNameByAccountId(long p_BookId) {
+		return mGreenDaoDALAccountBook.getAccountBookById(p_BookId).getAccountBookName();
 	}
 }

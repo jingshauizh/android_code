@@ -1,6 +1,6 @@
 package com.example.aa.aaapp.greendao.dbdal;
 
-import android.content.ContentValues;
+
 import android.content.Context;
 import com.example.aa.aaapp.MyApplication;
 import com.example.aa.aaapp.R;
@@ -21,6 +21,7 @@ public class GreenDaoDALUser extends GreenDaoDALBase  {
         super(p_context);
         mUserEntityDao = MyApplication.getDaoSession(p_context).getUserEntityDao();
         initDefaultData();
+
     }
     
     public Boolean insertUser(UserEntity p_user) {
@@ -44,21 +45,15 @@ public class GreenDaoDALUser extends GreenDaoDALBase  {
     }
 
 
-    public Boolean updateUser(String p_Condition, ContentValues pContentValues) {
-        return null;
-    }
-
-
-    public List<UserEntity> getUsers(String p_condition) {
-
+    public List<UserEntity> getUsers() {
         Query query = mUserEntityDao.queryBuilder().where(UserEntityDao.Properties.UserStatus.notEq(UserStatus.DET.toString())).build();
         // 查询结果以 List 返回
         return query.list();
     }
 
 
-    public List<UserEntity> getUser(int pCondition) {
-        Query query = mUserEntityDao.queryBuilder().where(UserEntityDao.Properties.UserId.eq(pCondition)).build();
+    public List<UserEntity> getUser(long userId) {
+        Query query = mUserEntityDao.queryBuilder().where(UserEntityDao.Properties.UserId.eq(userId)).build();
         return query.list();
     }
 

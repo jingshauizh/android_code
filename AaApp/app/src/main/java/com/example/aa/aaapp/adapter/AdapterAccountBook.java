@@ -30,7 +30,7 @@ public class AdapterAccountBook extends AdapterSliderBase {
 	public AdapterAccountBook(Context pContext) {
 		super(pContext, null);
 		BusinessAccountBook _BusinessAccountBook = new BusinessAccountBook(pContext);
-		List _List = _BusinessAccountBook.GetAccountBook("");
+		List _List = _BusinessAccountBook.getAccountBooks();
 		setList(_List);
 	}
 

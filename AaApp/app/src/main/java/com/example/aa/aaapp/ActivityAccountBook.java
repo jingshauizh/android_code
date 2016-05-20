@@ -25,6 +25,7 @@ import com.example.aa.aaapp.adapter.AdapterAccountBook;
 import com.example.aa.aaapp.business.BusinessAccountBook;
 import com.example.aa.aaapp.controls.SliderMenuItem;
 import com.example.aa.aaapp.controls.SliderMenuView;
+import com.example.aa.aaapp.greendao.model.AccountBookEntity;
 import com.example.aa.aaapp.model.ModelAccountBook;
 
 public class ActivityAccountBook extends ActivityFrame implements SliderMenuView.OnSliderMenuListenerIF {
@@ -33,7 +34,7 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 	
 	private AdapterAccountBook mAdapterAccountBook;
 	private BusinessAccountBook mBusinessAccountBook;
-	private ModelAccountBook mSelectModlAccountBook;
+	private AccountBookEntity mSelectModlAccountBook;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,10 +67,10 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
     	AdapterContextMenuInfo _AdapterContextMenuInfo = (AdapterContextMenuInfo) menuInfo;
     	ListAdapter _ListAdapter = lvAccountBookList.getAdapter();
     	
-    	mSelectModlAccountBook = (ModelAccountBook)_ListAdapter.getItem(_AdapterContextMenuInfo.position);
+    	mSelectModlAccountBook = (AccountBookEntity)_ListAdapter.getItem(_AdapterContextMenuInfo.position);
     	
     	menu.setHeaderIcon(R.drawable.account_book_small_icon);
-    	menu.setHeaderTitle(mSelectModlAccountBook.GetAccountBookName());
+    	menu.setHeaderTitle(mSelectModlAccountBook.getAccountBookName());
     	
     	createMenu(menu);
     }
@@ -114,7 +115,7 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 		setTopBarTitle(_Titel);
 	}
 	
-	private void ShowAccountBookAddOrEditDialog(ModelAccountBook pModelAccountBook)
+	private void ShowAccountBookAddOrEditDialog(AccountBookEntity pModelAccountBook)
 	{
 		View _View = getLayouInflater().inflate(R.layout.account_book_add_or_edit, null);
 		
@@ -122,7 +123,7 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 		CheckBox _chkIsDefault = (CheckBox)_View.findViewById(R.id.chkIsDefault);
 		
 		if (pModelAccountBook != null) {
-			_etAccountBookName.setText(pModelAccountBook.GetAccountBookName());
+			_etAccountBookName.setText(pModelAccountBook.getAccountBookName());
 		}
 		
 		String _Title;
@@ -146,12 +147,12 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 	
 	private class OnAddOrEditAccountBookListener implements DialogInterface.OnClickListener
 	{
-		private ModelAccountBook mModelAccountBook;
+		private AccountBookEntity mModelAccountBook;
 		private EditText etAccountBookName;
 		private boolean mIsSaveButton;
 		private CheckBox chkIsDefault;
 		
-		public OnAddOrEditAccountBookListener(ModelAccountBook pModelAccountBook,EditText petAccountBookName,CheckBox pchkIsDefault,Boolean pIsSaveButton)
+		public OnAddOrEditAccountBookListener(AccountBookEntity pModelAccountBook,EditText petAccountBookName,CheckBox pchkIsDefault,Boolean pIsSaveButton)
 		{
 			mModelAccountBook = pModelAccountBook;
 			etAccountBookName = petAccountBookName;
@@ -168,7 +169,7 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 			}
 			
 			if (mModelAccountBook == null) {
-				mModelAccountBook = new ModelAccountBook();
+				mModelAccountBook = new AccountBookEntity();
 			}
 			
 			String _AccountBookName = etAccountBookName.getText().toString().trim();
@@ -184,7 +185,7 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 				setAlertDialogIsClose(dialog, true);
 			}
 			
-			_CheckResult = mBusinessAccountBook.IsExistAccountBookByAccountBookName(_AccountBookName, mModelAccountBook.GetAccountBookID());
+			_CheckResult = mBusinessAccountBook.isExistAccountBookByAccountBookName(_AccountBookName);
 			
 			if (_CheckResult) {
 				Toast.makeText(getApplicationContext(), getString(R.string.CheckDataTextAccountBookExist), Toast.LENGTH_SHORT).show();
@@ -196,29 +197,29 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 				setAlertDialogIsClose(dialog, true);
 			}
 			
-			mModelAccountBook.SetAccountBookName(etAccountBookName.getText().toString());
+			mModelAccountBook.setAccountBookName(etAccountBookName.getText().toString());
 			
-			mModelAccountBook.SetAccountBookName(String.valueOf(etAccountBookName.getText().toString().trim()));
+			mModelAccountBook.setAccountBookName(String.valueOf(etAccountBookName.getText().toString().trim()));
 			if(chkIsDefault.isChecked())
 			{
-				mModelAccountBook.SetIsDefault(1);
+				mModelAccountBook.setIsDefault(1);
 			}
 			else {
-				mModelAccountBook.SetIsDefault(0);
+				mModelAccountBook.setIsDefault(0);
 			}
 			
-			if(mModelAccountBook.GetAccountBookID() > 0)
+			if(mModelAccountBook.getAccountBookId() > 0)
 			{
-				mModelAccountBook.SetIsDefault(1);
+				mModelAccountBook.setIsDefault(1);
 			}
 			
 			boolean _Result = false;
 			
-			if (mModelAccountBook.GetAccountBookID() == 0) {
-				_Result = mBusinessAccountBook.InsertAccountBook(mModelAccountBook);
+			if (mModelAccountBook.getAccountBookId() == 0) {
+				_Result = mBusinessAccountBook.insertAccountBook(mModelAccountBook);
 			}
 			else {
-				_Result = mBusinessAccountBook.UpdateAccountBookByAccountBookID(mModelAccountBook);
+				_Result = mBusinessAccountBook.updateAccountBookByAccountBookID(mModelAccountBook);
 			}
 			
 			if (_Result) {
@@ -232,7 +233,7 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 	}
 
 	private void Delete() {
-		String _Message = getString(R.string.DialogMessageAccountBookDelete,new Object[]{mSelectModlAccountBook.GetAccountBookName()});
+		String _Message = getString(R.string.DialogMessageAccountBookDelete,new Object[]{mSelectModlAccountBook.getAccountBookName()});
 		showAlertDialog(R.string.DialogTitleDelete, _Message, new OnDeleteClickListener());
 	}
 	
@@ -240,7 +241,7 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 	{
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			boolean _Result = mBusinessAccountBook.DeleteAccountBookByAccountBookID(mSelectModlAccountBook.GetAccountBookID());
+			boolean _Result = mBusinessAccountBook.deleteAccountBookByAccountBookID(mSelectModlAccountBook.getAccountBookId());
 			
 			if (_Result == true) {
 				BindData();

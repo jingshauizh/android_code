@@ -24,9 +24,10 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
     */
     public static class Properties {
         public final static Property AccountBookId = new Property(0, Long.class, "accountBookId", true, "ACCOUNT_BOOK_ID");
-        public final static Property State = new Property(1, String.class, "state", false, "STATE");
-        public final static Property IsDefault = new Property(2, int.class, "isDefault", false, "IS_DEFAULT");
-        public final static Property CreateDate = new Property(3, java.util.Date.class, "createDate", false, "CREATE_DATE");
+        public final static Property AccountBookName = new Property(1, String.class, "accountBookName", false, "ACCOUNT_BOOK_NAME");
+        public final static Property State = new Property(2, String.class, "state", false, "STATE");
+        public final static Property IsDefault = new Property(3, int.class, "isDefault", false, "IS_DEFAULT");
+        public final static Property CreateDate = new Property(4, java.util.Date.class, "createDate", false, "CREATE_DATE");
     };
 
 
@@ -43,9 +44,10 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ACCOUNT_BOOK_ENTITY\" (" + //
                 "\"ACCOUNT_BOOK_ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: accountBookId
-                "\"STATE\" TEXT NOT NULL ," + // 1: state
-                "\"IS_DEFAULT\" INTEGER NOT NULL ," + // 2: isDefault
-                "\"CREATE_DATE\" INTEGER NOT NULL );"); // 3: createDate
+                "\"ACCOUNT_BOOK_NAME\" TEXT NOT NULL ," + // 1: accountBookName
+                "\"STATE\" TEXT NOT NULL ," + // 2: state
+                "\"IS_DEFAULT\" INTEGER NOT NULL ," + // 3: isDefault
+                "\"CREATE_DATE\" INTEGER NOT NULL );"); // 4: createDate
     }
 
     /** Drops the underlying database table. */
@@ -63,9 +65,10 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
         if (accountBookId != null) {
             stmt.bindLong(1, accountBookId);
         }
-        stmt.bindString(2, entity.getState());
-        stmt.bindLong(3, entity.getIsDefault());
-        stmt.bindLong(4, entity.getCreateDate().getTime());
+        stmt.bindString(2, entity.getAccountBookName());
+        stmt.bindString(3, entity.getState());
+        stmt.bindLong(4, entity.getIsDefault());
+        stmt.bindLong(5, entity.getCreateDate().getTime());
     }
 
     /** @inheritdoc */
@@ -79,9 +82,10 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
     public AccountBookEntity readEntity(Cursor cursor, int offset) {
         AccountBookEntity entity = new AccountBookEntity( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // accountBookId
-            cursor.getString(offset + 1), // state
-            cursor.getInt(offset + 2), // isDefault
-            new java.util.Date(cursor.getLong(offset + 3)) // createDate
+            cursor.getString(offset + 1), // accountBookName
+            cursor.getString(offset + 2), // state
+            cursor.getInt(offset + 3), // isDefault
+            new java.util.Date(cursor.getLong(offset + 4)) // createDate
         );
         return entity;
     }
@@ -90,9 +94,10 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
     @Override
     public void readEntity(Cursor cursor, AccountBookEntity entity, int offset) {
         entity.setAccountBookId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setState(cursor.getString(offset + 1));
-        entity.setIsDefault(cursor.getInt(offset + 2));
-        entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 3)));
+        entity.setAccountBookName(cursor.getString(offset + 1));
+        entity.setState(cursor.getString(offset + 2));
+        entity.setIsDefault(cursor.getInt(offset + 3));
+        entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 4)));
      }
     
     /** @inheritdoc */

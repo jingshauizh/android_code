@@ -25,6 +25,7 @@ import com.example.aa.aaapp.business.BusinessAccountBook;
 import com.example.aa.aaapp.business.BusinessPayout;
 import com.example.aa.aaapp.controls.SliderMenuItem;
 import com.example.aa.aaapp.controls.SliderMenuView;
+import com.example.aa.aaapp.greendao.model.AccountBookEntity;
 import com.example.aa.aaapp.model.ModelAccountBook;
 import com.example.aa.aaapp.model.ModelPayout;
 
@@ -34,7 +35,7 @@ public class ActivityPayout extends ActivityFrame  implements SliderMenuView.OnS
 	private ModelPayout mSelectModelPayout;
 	private BusinessPayout mBusinessPayout;
 	private AdapterPayout mAdapterPayout;
-	private ModelAccountBook mAccountBook;
+	private AccountBookEntity mAccountBook;
 	private BusinessAccountBook mBusinessAccountBook;
 	
 	@Override
@@ -51,7 +52,7 @@ public class ActivityPayout extends ActivityFrame  implements SliderMenuView.OnS
 	
 	private void SetTitle() {
 		int _Count = lvPayoutList.getCount();
-		String _Titel = getString(R.string.ActivityTitlePayout, new Object[]{mAccountBook.GetAccountBookName(),_Count});
+		String _Titel = getString(R.string.ActivityTitlePayout, new Object[]{mAccountBook.getAccountBookName(),_Count});
 		setTopBarTitle(_Titel);
 	}
 
@@ -96,13 +97,13 @@ public class ActivityPayout extends ActivityFrame  implements SliderMenuView.OnS
 	protected void InitVariable() {
 		mBusinessPayout = new BusinessPayout(ActivityPayout.this);
 		mBusinessAccountBook = new BusinessAccountBook(ActivityPayout.this);
-		mAccountBook = mBusinessAccountBook.GetDefaultModelAccountBook();
-		mAdapterPayout = new AdapterPayout(this,mAccountBook.GetAccountBookID());
+		mAccountBook = mBusinessAccountBook.getDefaultAccountBookEntity();
+		mAdapterPayout = new AdapterPayout(this,mAccountBook.getAccountBookId());
 	}
 
 	protected void BindData()
 	{
-		AdapterPayout _AdapterPayout = new AdapterPayout(this,mAccountBook.GetAccountBookID());
+		AdapterPayout _AdapterPayout = new AdapterPayout(this,mAccountBook.getAccountBookId());
 		lvPayoutList.setAdapter(_AdapterPayout);
 		SetTitle();
 	}
@@ -141,7 +142,7 @@ public class ActivityPayout extends ActivityFrame  implements SliderMenuView.OnS
 		@Override
 		public void onItemClick(AdapterView p_AdapterView, View arg1, int p_Position,
 				long arg3) {
-			mAccountBook = (ModelAccountBook)((Adapter)p_AdapterView.getAdapter()).getItem(p_Position);
+			mAccountBook = (AccountBookEntity)((Adapter)p_AdapterView.getAdapter()).getItem(p_Position);
 			BindData();
 			m_AlertDialog.dismiss();
 		}

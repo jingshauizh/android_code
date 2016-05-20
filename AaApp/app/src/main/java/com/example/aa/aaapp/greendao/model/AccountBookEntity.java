@@ -11,6 +11,8 @@ public class AccountBookEntity {
 
     private Long accountBookId;
     /** Not-null value. */
+    private String accountBookName;
+    /** Not-null value. */
     private String state;
     private int isDefault;
     /** Not-null value. */
@@ -23,8 +25,9 @@ public class AccountBookEntity {
         this.accountBookId = accountBookId;
     }
 
-    public AccountBookEntity(Long accountBookId, String state, int isDefault, java.util.Date createDate) {
+    public AccountBookEntity(Long accountBookId, String accountBookName, String state, int isDefault, java.util.Date createDate) {
         this.accountBookId = accountBookId;
+        this.accountBookName = accountBookName;
         this.state = state;
         this.isDefault = isDefault;
         this.createDate = createDate;
@@ -36,6 +39,22 @@ public class AccountBookEntity {
 
     public void setAccountBookId(Long accountBookId) {
         this.accountBookId = accountBookId;
+    }
+
+    /** Not-null value. */
+    /**
+     * JavaDoc test getter and setter
+     */
+    public String getAccountBookName() {
+        return accountBookName;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    /**
+     * JavaDoc test getter and setter
+     */
+    public void setAccountBookName(String accountBookName) {
+        this.accountBookName = accountBookName;
     }
 
     /** Not-null value. */

@@ -29,9 +29,9 @@ public class AdapterPayout extends AdapterSliderBase {
 	}
 	
 	private BusinessPayout m_BusinessPayout;
-	private int mAccountBookID;
+	private long mAccountBookID;
 	
-	public AdapterPayout(Context p_Context,int p_AccountBookID)
+	public AdapterPayout(Context p_Context,long p_AccountBookID)
 	{
 		this(p_Context,null);
 		m_BusinessPayout = new BusinessPayout(p_Context);

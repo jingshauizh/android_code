@@ -72,19 +72,19 @@ public class BusinessPayout extends Business_Base {
 		return m_SqLiteDALPayout.getCount("");
 	}
 
-	public List<ModelPayout> GetPayoutByAccountBookID(int p_AccountBookID)
+	public List<ModelPayout> GetPayoutByAccountBookID(long p_AccountBookID)
 	{
 		String _Condition = " And AccountBookID = " + p_AccountBookID + " Order By PayoutDate DESC,PayoutID DESC";
 		return m_SqLiteDALPayout.GetPayout(_Condition);
 	}
 	
-	public String GetPayoutTotalMessage(String p_PayoutDate,int p_AccountBookID)
+	public String GetPayoutTotalMessage(String p_PayoutDate,long p_AccountBookID)
 	{
 		String _Total[] = GetPayoutTotalByPayoutDate(p_PayoutDate,p_AccountBookID);
 		return getContext().getString(R.string.TextViewTextPayoutTotal, new Object[]{_Total[0],_Total[1]});
 	}
 	
-	private String[] GetPayoutTotalByPayoutDate(String p_PayoutDate,int p_AccountBookID)
+	private String[] GetPayoutTotalByPayoutDate(String p_PayoutDate,long  p_AccountBookID)
 	{
 		String _Condition = " And PayoutDate = '" + p_PayoutDate + "' And AccountBookID = " + p_AccountBookID;
 		return GetPayoutTotal(_Condition);

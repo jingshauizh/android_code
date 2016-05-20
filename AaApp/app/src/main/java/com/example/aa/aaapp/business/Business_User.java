@@ -1,16 +1,11 @@
 package com.example.aa.aaapp.business;
 
-import android.content.ContentValues;
-import android.content.Context;
 
+import android.content.Context;
 import com.example.aa.aaapp.business.base.Business_Base;
-import com.example.aa.aaapp.database.interfaces.SQLiteDAL_UserIF;
-import com.example.aa.aaapp.database.sqldal.SQLiteDAL_User;
 import com.example.aa.aaapp.greendao.UserStatus;
 import com.example.aa.aaapp.greendao.dbdal.GreenDaoDALUser;
 import com.example.aa.aaapp.greendao.model.UserEntity;
-import com.example.aa.aaapp.model.Model_User;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +44,10 @@ public class Business_User extends Business_Base {
 
     public List<UserEntity> getNotHideUsers(){
 
-        return m_SQLiteDAL_User.getUsers("");
+        return m_SQLiteDAL_User.getUsers();
     }
-    public List<UserEntity> getUsers(String p_Condition){
-        return m_SQLiteDAL_User.getUsers(p_Condition);
+    public List<UserEntity> getUsers(){
+        return m_SQLiteDAL_User.getUsers();
     }
 
 
@@ -78,21 +73,6 @@ public class Business_User extends Business_Base {
         }
     }
 
-/*    public Boolean hideUserByUserID(long p_UserID)
-    {
-        String _Condition = " user_id = " + p_UserID;
-        ContentValues _ContentValues = new ContentValues();
-        _ContentValues.put("state", Model_User.UserStatus.DET.toString());
-        Boolean _Result = m_SQLiteDAL_User.updateUser(_Condition, _ContentValues);
-
-        if(_Result)
-        {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }*/
 
     public Boolean hideUserByUserEntity(UserEntity pUserEntity)
     {

@@ -25,7 +25,7 @@ public class AdapterAccountBookSelect extends AdapterSliderBase {
 	{
 		this(p_Context,null);
 		BusinessAccountBook _BusinessAccountBook = new BusinessAccountBook(p_Context);
-		List _List = _BusinessAccountBook.GetAccountBook("");
+		List _List = _BusinessAccountBook.getAccountBooks();
 		setList(_List);
 	}
 	

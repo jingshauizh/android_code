@@ -53,6 +53,7 @@ import com.example.aa.aaapp.business.Business_User;
 import com.example.aa.aaapp.controls.NumberDialog;
 import com.example.aa.aaapp.controls.SliderMenuItem;
 import com.example.aa.aaapp.controls.SliderMenuView;
+import com.example.aa.aaapp.greendao.model.AccountBookEntity;
 import com.example.aa.aaapp.model.ModelAccountBook;
 import com.example.aa.aaapp.model.ModelCategory;
 import com.example.aa.aaapp.model.ModelPayout;
@@ -69,7 +70,7 @@ public class ActivityPayoutAddOrEdit extends ActivityFrame
 	
 	private ModelPayout mModelPayout;
 	private BusinessPayout mBusinessPayout;
-	private Integer mAccountBookID;
+	private Long mAccountBookID;
 	private Integer mCategoryID;
 	private String mPayoutUserID;
 	private String mPayoutTypeArr[];
@@ -90,7 +91,7 @@ public class ActivityPayoutAddOrEdit extends ActivityFrame
 	
 	private BusinessAccountBook mBusinessAccountBook;
 	private BusinessCategory mBusinessCategory;
-	private ModelAccountBook mModelAccountBook;
+	private AccountBookEntity mModelAccountBook;
 	private Business_User mBusinessUser;
 	private List<RelativeLayout> mItemColor;
 	private List<Model_User> mUserSelectedList;
@@ -198,15 +199,15 @@ public class ActivityPayoutAddOrEdit extends ActivityFrame
 		mModelPayout = (ModelPayout) getIntent().getSerializableExtra("ModelPayout");
 		mBusinessAccountBook = new BusinessAccountBook(this);
 		mBusinessCategory = new BusinessCategory(this);
-		mModelAccountBook = mBusinessAccountBook.GetDefaultModelAccountBook();
+		mModelAccountBook = mBusinessAccountBook.getDefaultAccountBookEntity();
 		mBusinessUser = new Business_User(this);
 	}
 
 	protected void BindData()
 	{
 		
-		mAccountBookID = mModelAccountBook.GetAccountBookID();
-		etAccountBookName.setText(mModelAccountBook.GetAccountBookName());
+		mAccountBookID = mModelAccountBook.getAccountBookId();
+		//etAccountBookName.setText(mModelAccountBook.getAccountBookName();
 		actvCategoryName.setAdapter(mBusinessCategory.GetAllCategoryArrayAdapter());
 		etPayoutDate.setText(DateTools.getFormatDateTime(new Date(), "yyyy-MM-dd"));
 		mPayoutTypeArr = getResources().getStringArray(R.array.PayoutType);
@@ -242,7 +243,7 @@ public class ActivityPayoutAddOrEdit extends ActivityFrame
 		{
 			mModelPayout = new ModelPayout();
 		}
-		mModelPayout.SetAccountBookID(mAccountBookID);
+		//mModelPayout.SetAccountBookID(mAccountBookID);
 		mModelPayout.SetCategoryID(mCategoryID);
 		mModelPayout.SetAmount(new BigDecimal(etAmount.getText().toString().trim()));
 		mModelPayout.SetPayoutDate(DateTools.getDate(etPayoutDate.getText().toString().trim(), "yyyy-MM-dd"));
@@ -371,7 +372,7 @@ public class ActivityPayoutAddOrEdit extends ActivityFrame
 				long arg3) {
 			ModelAccountBook _ModelAccountBook = (ModelAccountBook)((Adapter)p_AdapterView.getAdapter()).getItem(p_Position);
 			etAccountBookName.setText(_ModelAccountBook.GetAccountBookName());
-			mAccountBookID = _ModelAccountBook.GetAccountBookID();
+			//mAccountBookID = _ModelAccountBook.GetAccountBookID();
 			m_AlertDialog.dismiss();
 		}
 	}
