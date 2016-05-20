@@ -110,7 +110,7 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 	
 	private void SetTitle() {
 		int _Count = mAdapterAccountBook.getCount();
-		String _Titel = getString(R.string.ActivityTitleAccountBook, new Object[]{_Count});
+		String _Titel = getString(R.string.ActivityTitleAccountBook);
 		setTopBarTitle(_Titel);
 	}
 	
