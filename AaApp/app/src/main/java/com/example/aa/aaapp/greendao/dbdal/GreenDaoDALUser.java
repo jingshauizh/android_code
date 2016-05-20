@@ -69,13 +69,14 @@ public class GreenDaoDALUser extends GreenDaoDALBase  {
 
 
     public void initDefaultData( ) {
-        UserEntity _UserEntity = new UserEntity();
+
         String []  _userStr = getContext().getResources().getStringArray(R.array.initDefaultUsername);
         List<UserEntity> userEntityList = getUserByName(_userStr[0]);
         if(userEntityList.size() > 0){
             return;
         }
         for (int i=0; i<_userStr.length;i++){
+            UserEntity _UserEntity = new UserEntity();
             _UserEntity.setUserName(_userStr[i]);
             _UserEntity.setUserStatus(UserStatus.USE.toString());
             _UserEntity.setCreateDate(new Date());

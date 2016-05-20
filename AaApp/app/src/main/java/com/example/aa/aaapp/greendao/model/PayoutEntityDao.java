@@ -14,7 +14,7 @@ import com.example.aa.aaapp.greendao.model.PayoutEntity;
 /** 
  * DAO for table "PAYOUT_ENTITY".
 */
-public class PayoutEntityDao extends AbstractDao<PayoutEntity, Void> {
+public class PayoutEntityDao extends AbstractDao<PayoutEntity, Long> {
 
     public static final String TABLENAME = "PAYOUT_ENTITY";
 
@@ -23,7 +23,7 @@ public class PayoutEntityDao extends AbstractDao<PayoutEntity, Void> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property PayoutId = new Property(0, Integer.class, "payoutId", false, "PAYOUT_ID");
+        public final static Property PayoutId = new Property(0, Long.class, "payoutId", true, "PAYOUT_ID");
         public final static Property AccountBookId = new Property(1, int.class, "accountBookId", false, "ACCOUNT_BOOK_ID");
         public final static Property AccountBookName = new Property(2, String.class, "accountBookName", false, "ACCOUNT_BOOK_NAME");
         public final static Property CategoryId = new Property(3, int.class, "categoryId", false, "CATEGORY_ID");
@@ -53,7 +53,7 @@ public class PayoutEntityDao extends AbstractDao<PayoutEntity, Void> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PAYOUT_ENTITY\" (" + //
-                "\"PAYOUT_ID\" INTEGER," + // 0: payoutId
+                "\"PAYOUT_ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: payoutId
                 "\"ACCOUNT_BOOK_ID\" INTEGER NOT NULL ," + // 1: accountBookId
                 "\"ACCOUNT_BOOK_NAME\" TEXT NOT NULL ," + // 2: accountBookName
                 "\"CATEGORY_ID\" INTEGER NOT NULL ," + // 3: categoryId
@@ -68,9 +68,6 @@ public class PayoutEntityDao extends AbstractDao<PayoutEntity, Void> {
                 "\"COMMENT\" TEXT NOT NULL ," + // 12: comment
                 "\"CREATE_DATE\" INTEGER NOT NULL ," + // 13: createDate
                 "\"STATE\" INTEGER NOT NULL );"); // 14: state
-        // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_PAYOUT_ENTITY_PAYOUT_ID ON PAYOUT_ENTITY" +
-                " (\"PAYOUT_ID\");");
     }
 
     /** Drops the underlying database table. */
@@ -84,7 +81,7 @@ public class PayoutEntityDao extends AbstractDao<PayoutEntity, Void> {
     protected void bindValues(SQLiteStatement stmt, PayoutEntity entity) {
         stmt.clearBindings();
  
-        Integer payoutId = entity.getPayoutId();
+        Long payoutId = entity.getPayoutId();
         if (payoutId != null) {
             stmt.bindLong(1, payoutId);
         }
@@ -106,15 +103,15 @@ public class PayoutEntityDao extends AbstractDao<PayoutEntity, Void> {
 
     /** @inheritdoc */
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public PayoutEntity readEntity(Cursor cursor, int offset) {
         PayoutEntity entity = new PayoutEntity( //
-            cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0), // payoutId
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // payoutId
             cursor.getInt(offset + 1), // accountBookId
             cursor.getString(offset + 2), // accountBookName
             cursor.getInt(offset + 3), // categoryId
@@ -136,7 +133,7 @@ public class PayoutEntityDao extends AbstractDao<PayoutEntity, Void> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, PayoutEntity entity, int offset) {
-        entity.setPayoutId(cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0));
+        entity.setPayoutId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setAccountBookId(cursor.getInt(offset + 1));
         entity.setAccountBookName(cursor.getString(offset + 2));
         entity.setCategoryId(cursor.getInt(offset + 3));
@@ -155,15 +152,19 @@ public class PayoutEntityDao extends AbstractDao<PayoutEntity, Void> {
     
     /** @inheritdoc */
     @Override
-    protected Void updateKeyAfterInsert(PayoutEntity entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected Long updateKeyAfterInsert(PayoutEntity entity, long rowId) {
+        entity.setPayoutId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Void getKey(PayoutEntity entity) {
-        return null;
+    public Long getKey(PayoutEntity entity) {
+        if(entity != null) {
+            return entity.getPayoutId();
+        } else {
+            return null;
+        }
     }
 
     /** @inheritdoc */

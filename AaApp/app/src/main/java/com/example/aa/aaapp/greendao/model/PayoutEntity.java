@@ -9,7 +9,7 @@ package com.example.aa.aaapp.greendao.model;
 // This is another test comment, you could also apply annotations like this
 public class PayoutEntity {
 
-    private Integer payoutId;
+    private Long payoutId;
     private int accountBookId;
     /** Not-null value. */
     private String accountBookName;
@@ -35,7 +35,11 @@ public class PayoutEntity {
     public PayoutEntity() {
     }
 
-    public PayoutEntity(Integer payoutId, int accountBookId, String accountBookName, int categoryId, String categoryName, String path, int payWayId, int placeId, long amount, java.util.Date payoutDate, String payoutType, int payoutUserId, String comment, java.util.Date createDate, int state) {
+    public PayoutEntity(Long payoutId) {
+        this.payoutId = payoutId;
+    }
+
+    public PayoutEntity(Long payoutId, int accountBookId, String accountBookName, int categoryId, String categoryName, String path, int payWayId, int placeId, long amount, java.util.Date payoutDate, String payoutType, int payoutUserId, String comment, java.util.Date createDate, int state) {
         this.payoutId = payoutId;
         this.accountBookId = accountBookId;
         this.accountBookName = accountBookName;
@@ -53,11 +57,11 @@ public class PayoutEntity {
         this.state = state;
     }
 
-    public Integer getPayoutId() {
+    public Long getPayoutId() {
         return payoutId;
     }
 
-    public void setPayoutId(Integer payoutId) {
+    public void setPayoutId(Long payoutId) {
         this.payoutId = payoutId;
     }
 

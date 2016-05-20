@@ -39,7 +39,7 @@ public class AaGenaerator {
         userEntity.setJavaDoc("This entity is used by internal tests of greenDAO.\n" +
                 "(This JavaDoc is defined in the generator project.)");
         userEntity.setCodeBeforeClass("// This is another test comment, you could also apply annotations like this");
-        userEntity.addIntProperty("userId").index();
+        userEntity.addLongProperty("userId").primaryKey().autoincrement();
         userEntity.addStringProperty("userStatus").notNull().javaDocGetterAndSetter("JavaDoc test getter and setter");
         userEntity.addStringProperty("userName").notNull().javaDocGetterAndSetter("JavaDoc test getter");
         userEntity.addDateProperty("createDate").notNull();
@@ -51,9 +51,7 @@ public class AaGenaerator {
         accountBook.setJavaDoc("This entity is used for AccountBook.\n" +
                 "(This JavaDoc is defined in the generator project.)");
         accountBook.setCodeBeforeClass("// This is another test comment, you could also apply annotations like this");
-        accountBook.addIdProperty().javaDocField("JavaDoc test field");
-
-        accountBook.addIntProperty("accountBookId").index();
+        accountBook.addLongProperty("accountBookId").primaryKey().autoincrement();
         accountBook.addStringProperty("state").notNull().javaDocGetterAndSetter("JavaDoc test getter and setter");
         accountBook.addIntProperty("isDefault").notNull().javaDocGetterAndSetter("JavaDoc test getter");
         accountBook.addDateProperty("createDate").notNull();
@@ -66,7 +64,7 @@ public class AaGenaerator {
         accountBook.setJavaDoc("This entity is used for categoryEntity.\n" +
                 "(This JavaDoc is defined in the generator project.)");
         accountBook.setCodeBeforeClass("// This is another test comment, you could also apply annotations like this");
-        accountBook.addIntProperty("categoryId").index();
+        accountBook.addLongProperty("categoryId").primaryKey().autoincrement();
         accountBook.addStringProperty("categoryName").notNull().javaDocGetterAndSetter("JavaDoc test getter and setter");
         accountBook.addIntProperty("typeFlag").notNull().javaDocGetterAndSetter("JavaDoc test getter");
         accountBook.addIntProperty("parentId").notNull().javaDocGetterAndSetter("JavaDoc test getter");
@@ -83,7 +81,7 @@ public class AaGenaerator {
         payoutEntity.setCodeBeforeClass("// This is another test comment, you could also apply annotations like this");
 
 
-        payoutEntity.addIntProperty("payoutId").index();
+        payoutEntity.addLongProperty("payoutId").primaryKey().autoincrement();
         payoutEntity.addIntProperty("accountBookId").notNull();
         payoutEntity.addStringProperty("accountBookName").notNull();
         payoutEntity.addIntProperty("categoryId").notNull();

@@ -9,7 +9,7 @@ package com.example.aa.aaapp.greendao.model;
 // This is another test comment, you could also apply annotations like this
 public class UserEntity {
 
-    private Integer userId;
+    private Long userId;
     /** Not-null value. */
     private String userStatus;
     /** Not-null value. */
@@ -20,18 +20,22 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Integer userId, String userStatus, String userName, java.util.Date createDate) {
+    public UserEntity(Long userId) {
+        this.userId = userId;
+    }
+
+    public UserEntity(Long userId, String userStatus, String userName, java.util.Date createDate) {
         this.userId = userId;
         this.userStatus = userStatus;
         this.userName = userName;
         this.createDate = createDate;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

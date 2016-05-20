@@ -23,11 +23,10 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property AccountBookId = new Property(1, Integer.class, "accountBookId", false, "ACCOUNT_BOOK_ID");
-        public final static Property State = new Property(2, String.class, "state", false, "STATE");
-        public final static Property IsDefault = new Property(3, int.class, "isDefault", false, "IS_DEFAULT");
-        public final static Property CreateDate = new Property(4, java.util.Date.class, "createDate", false, "CREATE_DATE");
+        public final static Property AccountBookId = new Property(0, Long.class, "accountBookId", true, "ACCOUNT_BOOK_ID");
+        public final static Property State = new Property(1, String.class, "state", false, "STATE");
+        public final static Property IsDefault = new Property(2, int.class, "isDefault", false, "IS_DEFAULT");
+        public final static Property CreateDate = new Property(3, java.util.Date.class, "createDate", false, "CREATE_DATE");
     };
 
 
@@ -43,14 +42,10 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ACCOUNT_BOOK_ENTITY\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"ACCOUNT_BOOK_ID\" INTEGER," + // 1: accountBookId
-                "\"STATE\" TEXT NOT NULL ," + // 2: state
-                "\"IS_DEFAULT\" INTEGER NOT NULL ," + // 3: isDefault
-                "\"CREATE_DATE\" INTEGER NOT NULL );"); // 4: createDate
-        // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_ACCOUNT_BOOK_ENTITY_ACCOUNT_BOOK_ID ON ACCOUNT_BOOK_ENTITY" +
-                " (\"ACCOUNT_BOOK_ID\");");
+                "\"ACCOUNT_BOOK_ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: accountBookId
+                "\"STATE\" TEXT NOT NULL ," + // 1: state
+                "\"IS_DEFAULT\" INTEGER NOT NULL ," + // 2: isDefault
+                "\"CREATE_DATE\" INTEGER NOT NULL );"); // 3: createDate
     }
 
     /** Drops the underlying database table. */
@@ -64,18 +59,13 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
     protected void bindValues(SQLiteStatement stmt, AccountBookEntity entity) {
         stmt.clearBindings();
  
-        Long id = entity.getId();
-        if (id != null) {
-            stmt.bindLong(1, id);
-        }
- 
-        Integer accountBookId = entity.getAccountBookId();
+        Long accountBookId = entity.getAccountBookId();
         if (accountBookId != null) {
-            stmt.bindLong(2, accountBookId);
+            stmt.bindLong(1, accountBookId);
         }
-        stmt.bindString(3, entity.getState());
-        stmt.bindLong(4, entity.getIsDefault());
-        stmt.bindLong(5, entity.getCreateDate().getTime());
+        stmt.bindString(2, entity.getState());
+        stmt.bindLong(3, entity.getIsDefault());
+        stmt.bindLong(4, entity.getCreateDate().getTime());
     }
 
     /** @inheritdoc */
@@ -88,11 +78,10 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
     @Override
     public AccountBookEntity readEntity(Cursor cursor, int offset) {
         AccountBookEntity entity = new AccountBookEntity( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // accountBookId
-            cursor.getString(offset + 2), // state
-            cursor.getInt(offset + 3), // isDefault
-            new java.util.Date(cursor.getLong(offset + 4)) // createDate
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // accountBookId
+            cursor.getString(offset + 1), // state
+            cursor.getInt(offset + 2), // isDefault
+            new java.util.Date(cursor.getLong(offset + 3)) // createDate
         );
         return entity;
     }
@@ -100,17 +89,16 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, AccountBookEntity entity, int offset) {
-        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setAccountBookId(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setState(cursor.getString(offset + 2));
-        entity.setIsDefault(cursor.getInt(offset + 3));
-        entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 4)));
+        entity.setAccountBookId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setState(cursor.getString(offset + 1));
+        entity.setIsDefault(cursor.getInt(offset + 2));
+        entity.setCreateDate(new java.util.Date(cursor.getLong(offset + 3)));
      }
     
     /** @inheritdoc */
     @Override
     protected Long updateKeyAfterInsert(AccountBookEntity entity, long rowId) {
-        entity.setId(rowId);
+        entity.setAccountBookId(rowId);
         return rowId;
     }
     
@@ -118,7 +106,7 @@ public class AccountBookEntityDao extends AbstractDao<AccountBookEntity, Long> {
     @Override
     public Long getKey(AccountBookEntity entity) {
         if(entity != null) {
-            return entity.getId();
+            return entity.getAccountBookId();
         } else {
             return null;
         }

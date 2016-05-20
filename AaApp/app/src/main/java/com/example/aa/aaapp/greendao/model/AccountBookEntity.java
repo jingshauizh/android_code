@@ -9,11 +9,7 @@ package com.example.aa.aaapp.greendao.model;
 // This is another test comment, you could also apply annotations like this
 public class AccountBookEntity {
 
-    /**
-     * JavaDoc test field
-     */
-    private Long id;
-    private Integer accountBookId;
+    private Long accountBookId;
     /** Not-null value. */
     private String state;
     private int isDefault;
@@ -23,31 +19,22 @@ public class AccountBookEntity {
     public AccountBookEntity() {
     }
 
-    public AccountBookEntity(Long id) {
-        this.id = id;
+    public AccountBookEntity(Long accountBookId) {
+        this.accountBookId = accountBookId;
     }
 
-    public AccountBookEntity(Long id, Integer accountBookId, String state, int isDefault, java.util.Date createDate) {
-        this.id = id;
+    public AccountBookEntity(Long accountBookId, String state, int isDefault, java.util.Date createDate) {
         this.accountBookId = accountBookId;
         this.state = state;
         this.isDefault = isDefault;
         this.createDate = createDate;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getAccountBookId() {
+    public Long getAccountBookId() {
         return accountBookId;
     }
 
-    public void setAccountBookId(Integer accountBookId) {
+    public void setAccountBookId(Long accountBookId) {
         this.accountBookId = accountBookId;
     }
 

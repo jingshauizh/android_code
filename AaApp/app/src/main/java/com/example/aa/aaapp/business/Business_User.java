@@ -54,13 +54,16 @@ public class Business_User extends Business_Base {
         return m_SQLiteDAL_User.getUsers(p_Condition);
     }
 
-    public UserEntity getUserById(int p_UserId){
-        String _Condition = " and user_id="+p_UserId;
-        List<UserEntity> userListr=  m_SQLiteDAL_User.getUsers(_Condition);
-        if(userListr.size() == 1){
-            return userListr.get(0);
+
+    public UserEntity getUserByUserName(String pUserName)
+    {
+
+        List<UserEntity> _List = m_SQLiteDAL_User.getUserByName(pUserName);
+        if (_List.size() > 0) {
+            return _List.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     public boolean isExistUserByUserName(String pUserName)
@@ -74,7 +77,7 @@ public class Business_User extends Business_Base {
         }
     }
 
-    public Boolean hideUserByUserID(int p_UserID)
+    public Boolean hideUserByUserID(long p_UserID)
     {
         String _Condition = " user_id = " + p_UserID;
         ContentValues _ContentValues = new ContentValues();

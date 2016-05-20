@@ -14,7 +14,7 @@ import com.example.aa.aaapp.greendao.model.CategoryEntity;
 /** 
  * DAO for table "CATEGORY_ENTITY".
 */
-public class CategoryEntityDao extends AbstractDao<CategoryEntity, Void> {
+public class CategoryEntityDao extends AbstractDao<CategoryEntity, Long> {
 
     public static final String TABLENAME = "CATEGORY_ENTITY";
 
@@ -23,7 +23,7 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Void> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property CategoryId = new Property(0, Integer.class, "categoryId", false, "CATEGORY_ID");
+        public final static Property CategoryId = new Property(0, Long.class, "categoryId", true, "CATEGORY_ID");
         public final static Property CategoryName = new Property(1, String.class, "categoryName", false, "CATEGORY_NAME");
         public final static Property TypeFlag = new Property(2, int.class, "typeFlag", false, "TYPE_FLAG");
         public final static Property ParentId = new Property(3, int.class, "parentId", false, "PARENT_ID");
@@ -45,16 +45,13 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Void> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"CATEGORY_ENTITY\" (" + //
-                "\"CATEGORY_ID\" INTEGER," + // 0: categoryId
+                "\"CATEGORY_ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: categoryId
                 "\"CATEGORY_NAME\" TEXT NOT NULL ," + // 1: categoryName
                 "\"TYPE_FLAG\" INTEGER NOT NULL ," + // 2: typeFlag
                 "\"PARENT_ID\" INTEGER NOT NULL ," + // 3: parentId
                 "\"PATH\" TEXT NOT NULL ," + // 4: path
                 "\"STATE\" INTEGER NOT NULL ," + // 5: state
                 "\"CREATE_DATE\" INTEGER NOT NULL );"); // 6: createDate
-        // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_CATEGORY_ENTITY_CATEGORY_ID ON CATEGORY_ENTITY" +
-                " (\"CATEGORY_ID\");");
     }
 
     /** Drops the underlying database table. */
@@ -68,7 +65,7 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Void> {
     protected void bindValues(SQLiteStatement stmt, CategoryEntity entity) {
         stmt.clearBindings();
  
-        Integer categoryId = entity.getCategoryId();
+        Long categoryId = entity.getCategoryId();
         if (categoryId != null) {
             stmt.bindLong(1, categoryId);
         }
@@ -82,15 +79,15 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Void> {
 
     /** @inheritdoc */
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public CategoryEntity readEntity(Cursor cursor, int offset) {
         CategoryEntity entity = new CategoryEntity( //
-            cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0), // categoryId
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // categoryId
             cursor.getString(offset + 1), // categoryName
             cursor.getInt(offset + 2), // typeFlag
             cursor.getInt(offset + 3), // parentId
@@ -104,7 +101,7 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Void> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, CategoryEntity entity, int offset) {
-        entity.setCategoryId(cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0));
+        entity.setCategoryId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setCategoryName(cursor.getString(offset + 1));
         entity.setTypeFlag(cursor.getInt(offset + 2));
         entity.setParentId(cursor.getInt(offset + 3));
@@ -115,15 +112,19 @@ public class CategoryEntityDao extends AbstractDao<CategoryEntity, Void> {
     
     /** @inheritdoc */
     @Override
-    protected Void updateKeyAfterInsert(CategoryEntity entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected Long updateKeyAfterInsert(CategoryEntity entity, long rowId) {
+        entity.setCategoryId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Void getKey(CategoryEntity entity) {
-        return null;
+    public Long getKey(CategoryEntity entity) {
+        if(entity != null) {
+            return entity.getCategoryId();
+        } else {
+            return null;
+        }
     }
 
     /** @inheritdoc */

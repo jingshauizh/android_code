@@ -228,15 +228,13 @@ public class UserActivity extends ActivityFrame implements SliderMenuView.OnSlid
                 setAlertDialogIsClose(dialog, true);
             }
 
-
-
             mModelUser.setUserName(etUserName.getText().toString());
-            mModelUser.setUserStatus(UserStatus.USE.toString());
-            mModelUser.setCreateDate(new Date());
-
             boolean _Result = false;
 
             if (mModelUser.getUserId() == null ||mModelUser.getUserId() ==0) {
+
+                mModelUser.setUserStatus(UserStatus.USE.toString());
+                mModelUser.setCreateDate(new Date());
                 _Result = mBusinessUser.insertUser(mModelUser);
             }
             else {
