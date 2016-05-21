@@ -3,10 +3,14 @@ package com.example.aa.aaapp.greendao.dbdal;
 import android.content.Context;
 
 import com.example.aa.aaapp.MyApplication;
+import com.example.aa.aaapp.R;
+import com.example.aa.aaapp.greendao.UserStatus;
 import com.example.aa.aaapp.greendao.model.AccountBookEntity;
 import com.example.aa.aaapp.greendao.model.AccountBookEntityDao;
+import com.example.aa.aaapp.model.Model_User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.greenrobot.dao.query.Query;
@@ -61,7 +65,7 @@ public class GreenDaoDALAccountBook extends GreenDaoDALBase  {
 
 
     public AccountBookEntity getAccountBookByName(String accountBookByName) {
-        Query query = mAccountBookEntityDao.queryBuilder().where(AccountBookEntityDao.Properties.AccountBookId.eq(accountBookByName)).build();
+        Query query = mAccountBookEntityDao.queryBuilder().where(AccountBookEntityDao.Properties.AccountBookName.eq(accountBookByName)).build();
         if(query.list().size() > 0){
             return (AccountBookEntity)query.list().get(0);
         }
@@ -100,7 +104,17 @@ public class GreenDaoDALAccountBook extends GreenDaoDALBase  {
 
 
     public void initDefaultData( ) {
-
+        String _AccountBook[] = getContext().getResources().getStringArray(R.array.InitDefaultDataAccountBookName);
+        AccountBookEntity _AccountBookEntityT = this.getAccountBookByName(_AccountBook[0]);
+        if(_AccountBookEntityT != null){
+            return;
+        }
+        AccountBookEntity _AccountBookEntity = new AccountBookEntity();
+        _AccountBookEntity.setAccountBookName(_AccountBook[0]);
+        _AccountBookEntity.setIsDefault(1);
+        _AccountBookEntity.setCreateDate(new Date());
+        _AccountBookEntity.setState(UserStatus.USE.toString());
+        mAccountBookEntityDao.insert(_AccountBookEntity);
 
     }
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.aa.aaapp.R;
 import com.example.aa.aaapp.adapter.base.AdapterSliderBase;
 import com.example.aa.aaapp.business.BusinessAccountBook;
+import com.example.aa.aaapp.greendao.model.AccountBookEntity;
 import com.example.aa.aaapp.model.ModelAccountBook;
 
 public class AdapterAccountBook extends AdapterSliderBase {
@@ -50,9 +51,9 @@ public class AdapterAccountBook extends AdapterSliderBase {
 		else {
 			_Holder = (Holder) convertView.getTag();
 		}
-		
-		ModelAccountBook _ModelAccountBook = (ModelAccountBook)getItem(position);
-		if(_ModelAccountBook.GetIsDefault() == 1)
+
+		AccountBookEntity _ModelAccountBook = (AccountBookEntity)getItem(position);
+		if(_ModelAccountBook.getIsDefault() == 1)
 		{
 			_Holder.ivIcon.setImageResource(R.drawable.account_book_default);
 		}
@@ -64,7 +65,7 @@ public class AdapterAccountBook extends AdapterSliderBase {
 		String _Total[] = _BusinessPayout.GetPayoutTotalByAccountBookID(_ModelAccountBook.GetAccountBookID());		*/
 
 //		_Holder.tvTotal.setText(FormatResString(R.string.TextViewTextAccountBookPayoutTotal, new Object[]{_Total[0]}));
-		_Holder.tvName.setText(_ModelAccountBook.GetAccountBookName());
+		_Holder.tvName.setText(_ModelAccountBook.getAccountBookName());
 //		_Holder.tvMoney.setText(FormatResString(R.string.TextViewTextAccountBookPayoutMoney, new Object[]{_Total[1]}));
 		
 		return convertView;

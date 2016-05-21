@@ -1,32 +1,30 @@
 package com.example.aa.aaapp;
 
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.example.aa.aaapp.Util.RegexTools;
 import com.example.aa.aaapp.activity.ActivityFrame;
 import com.example.aa.aaapp.adapter.AdapterAccountBook;
 import com.example.aa.aaapp.business.BusinessAccountBook;
 import com.example.aa.aaapp.controls.SliderMenuItem;
 import com.example.aa.aaapp.controls.SliderMenuView;
+import com.example.aa.aaapp.greendao.UserStatus;
 import com.example.aa.aaapp.greendao.model.AccountBookEntity;
-import com.example.aa.aaapp.model.ModelAccountBook;
+
+import java.util.Date;
 
 public class ActivityAccountBook extends ActivityFrame implements SliderMenuView.OnSliderMenuListenerIF {
 	
@@ -170,6 +168,8 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 			
 			if (mModelAccountBook == null) {
 				mModelAccountBook = new AccountBookEntity();
+				mModelAccountBook.setCreateDate(new Date());
+				mModelAccountBook.setState(UserStatus.USE.toString());
 			}
 			
 			String _AccountBookName = etAccountBookName.getText().toString().trim();
@@ -208,14 +208,14 @@ public class ActivityAccountBook extends ActivityFrame implements SliderMenuView
 				mModelAccountBook.setIsDefault(0);
 			}
 			
-			if(mModelAccountBook.getAccountBookId() > 0)
+			if(mModelAccountBook.getAccountBookId() != null && mModelAccountBook.getAccountBookId() > 0)
 			{
 				mModelAccountBook.setIsDefault(1);
 			}
 			
 			boolean _Result = false;
 			
-			if (mModelAccountBook.getAccountBookId() == 0) {
+			if (mModelAccountBook.getAccountBookId() == null || mModelAccountBook.getAccountBookId() == 0) {
 				_Result = mBusinessAccountBook.insertAccountBook(mModelAccountBook);
 			}
 			else {
