@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.aa.ipcsystem.Book;
 import com.example.aa.ipcsystem.IBookManager;
@@ -26,6 +27,8 @@ import java.util.List;
 
 public class BookManagerActivity extends AppCompatActivity {
     private static final String TAG ="BookManagerActivity";
+    private Button buttonAddBook;
+    private IBookManager bookManager;
 
 
     @Override
@@ -46,13 +49,29 @@ public class BookManagerActivity extends AppCompatActivity {
 
         Intent _intent = new Intent(BookManagerActivity.this,BookManagerService.class);
         bindService(_intent, mConnection, Context.BIND_AUTO_CREATE);
+        buttonAddBook = (Button)findViewById(R.id.buttonAddBook);
+        buttonAddBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(bookManager!= null){
+                    try {
+                        Book book = new Book(3,"Third book");
+                        bookManager.addBook(book);
+                        List bookList = bookManager.getBookList();
+                        Log.w(TAG, "query list size:" + bookList.size());
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
 
     private ServiceConnection mConnection = new ServiceConnection(){
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            IBookManager bookManager = IBookManager.Stub.asInterface(service);
+             bookManager = IBookManager.Stub.asInterface(service);
 
             try {
                 List booklist = bookManager.getBookList();
