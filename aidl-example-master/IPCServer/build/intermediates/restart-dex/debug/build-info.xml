@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="armeabi-v7a,armeabi"
+    api-level="19"
+    density="xhdpi"
+    format="7"
+    timestamp="2933943585901" >
+
+    <task
+        name="javac"
+        duration="371" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="45" />
+    <task
+        name="verifier"
+        duration="8" />
+
+    <artifact
+        location="C:\1jason\3code\git_code\android_code\aidl-example-master\IPCServer\build\outputs\apk\IPCServer-debug.apk"
+        type="MAIN" />
+
+    <build timestamp="2933943585901" >
+        <artifact
+            location="C:\1jason\3code\git_code\android_code\aidl-example-master\IPCServer\build\outputs\apk\IPCServer-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>
